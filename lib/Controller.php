@@ -104,7 +104,7 @@ class Controller
         }
         else if($format === 'rdf')
         {
-            $stream = GuzzleHttp\Psr7\stream_for($result);
+            $stream = \GuzzleHttp\Psr7\stream_for($result);
             return $response->withBody($stream)
                             ->withHeader('Content-Type', 'text/turtle');
         }
