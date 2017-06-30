@@ -9,7 +9,7 @@ A simple graphical UI is provided on the root of the application, both for
 basic testing and to act as a UI for consuming applications (e.g. the Moodle
 plugin). This UI makes Ajax calls to the web service API to get its data.
 
-## Installation
+## Setting up for development
 
 Clone the repo.
 
@@ -17,7 +17,7 @@ Install [Composer](http://getcomposer.org/).
 
 Install [Bower](https://bower.io/).
 
-Run these commands in the root of the project:
+Run this command in the root of the project:
 
 ```
 composer install
@@ -27,14 +27,30 @@ bower install
 If you only want the web service, you can ignore the Bower instructions:
 Bower is only necessary if you want to use the graphical UI.
 
+## Tests
+
+To run the tests, do:
+
+```
+./vendor/bin/robo test
+```
+
+To run tests with a coverage report, do:
+
+```
+./vendor/bin/robo cov
+```
+
 ## Running
 
 The simplest way to run the application is with PHP on the command line. Go
 to the root of the application and do:
 
 ```
-php -S localhost:8888 -t .
+./vendor/bin/robo server
 ```
+
+This runs the server on `http://localhost:8888`.
 
 Alternatively, you can run it as a PHP application using a standard web server
 like Apache.

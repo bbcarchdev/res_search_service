@@ -44,7 +44,7 @@ class RESClient
      * @param string $acropolisUrl
      * @param \res\liblod\LOD $lod
      */
-    public function __construct($acropolisUrl, $lod=NULL)
+    public function __construct($acropolisUrl=NULL, $lod=NULL)
     {
         if(empty($acropolisUrl))
         {

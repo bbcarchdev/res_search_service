@@ -1,0 +1,63 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix po: <http://purl.org/ontology/po/> .
+@prefix cert: <http://www.w3.org/ns/auth/cert#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix mrss: <http://search.yahoo.com/mrss/> .
+@prefix xhtml: <http://www.w3.org/1999/xhtml/vocab#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix acl: <http://www.w3.org/ns/auth/acl#> .
+@prefix wdrs: <http://www.w3.org/2007/05/powder-s#> .
+@prefix schema: <http://schema.org/> .
+@prefix res: <http://bbcarchdev.github.io/ns/spindle#> .
+@prefix osd: <http://a9.com/-/spec/opensearch/1.1/> .
+@prefix olo: <http://purl.org/ontology/olo/core#> .
+
+<http://acropolis.org.uk/audiences>
+    dct:hasFormat <http://acropolis.org.uk/audiences.ttl> ;
+    a void:Dataset ;
+    rdfs:label "Audiences"@en-gb ;
+    rdfs:seeAlso <http://acropolis.org.uk/audiences#all>, <http://bbcimages.acropolis.org.uk/#members>, <http://bobnational.net/#members>, <http://shakespeare.acropolis.org.uk/#members>, <http://www.bbcredux.com/#members> .
+
+<http://acropolis.org.uk/audiences#all>
+    a odrl:Group ;
+    rdfs:comment "Resources which are generally-accessible to the public"@en-gb ;
+    rdfs:label "Everyone"@en-gb ;
+    rdfs:seeAlso <http://acropolis.org.uk/everything.ttl> .
+
+<http://acropolis.org.uk/audiences.ttl>
+    dct:format <http://purl.org/NET/mediatypes/text/turtle> ;
+    a dcmitype:Text, <http://www.w3.org/ns/formats/Turtle> .
+
+<http://bbcimages.acropolis.org.uk/#members>
+    a odrl:Group ;
+    rdfs:label "Users of the BBC bbcimages Archive Resource"@en-gb ;
+    rdfs:seeAlso <http://acropolis.org.uk/.ttl?for=http://bbcimages.acropolis.org.uk/%23members> .
+
+<http://bobnational.net/#members>
+    a odrl:Group ;
+    rdfs:label "Authorised users of BoB National"@en-gb ;
+    rdfs:seeAlso <http://acropolis.org.uk/.ttl?for=http://bobnational.net/%23members> .
+
+<http://shakespeare.acropolis.org.uk/#members>
+    a odrl:Group ;
+    rdfs:label "Authorised users of the BBC Shakespeare Archive Resource"@en-gb ;
+    rdfs:seeAlso <http://acropolis.org.uk/.ttl?for=http://shakespeare.acropolis.org.uk/%23members> .
+
+<http://www.bbcredux.com/#members>
+    a odrl:Group ;
+    rdfs:label "Authorised users of BBC Redux"@en-gb ;
+    rdfs:seeAlso <http://acropolis.org.uk/.ttl?for=http://www.bbcredux.com/%23members> .
+
