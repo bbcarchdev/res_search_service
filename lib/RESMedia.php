@@ -1,49 +1,62 @@
 <?php
 namespace res\libres;
 
-function isVideo($lodinstance)
-{
-    return $lodinstance->hasType(
-        'dcmitype:MovingImage',
-        'schema:Movie',
-        'schema:VideoObject',
-        'po:TVContent'
-    );
-}
-
-function isAudio($lodinstance)
-{
-    return $lodinstance->hasType(
-        'dcmitype:Sound',
-        'schema:AudioObject',
-        'po:RadioContent'
-    );
-}
-
-function isImage($lodinstance)
-{
-    return $lodinstance->hasType(
-        'dcmitype:StillImage',
-        'schema:Photograph',
-        'schema:ImageObject',
-        'foaf:Image'
-    );
-}
-
-function isText($lodinstance)
-{
-    return $lodinstance->hasType(
-        'dcmitype:Text'
-    );
-}
-
-/* Class for working with RES media types */
+/**
+ * Class for working with RES media types
+ */
 class RESMedia
 {
-    /* returns media type if the LODInstance $lodinstance has rdf:type <media type>,
-       where <media type> is a recognisable media RDF type; NULL otherwise;
-       media type is one of
-       'audio', 'video', 'image', 'text' */
+    const VIDEO = 'video';
+    const AUDIO = 'audio';
+    const IMAGE = 'image';
+    const TEXT = 'text';
+
+    private function isVideo($lodinstance)
+    {
+        return $lodinstance->hasType(
+            'dcmitype:MovingImage',
+            'schema:Movie',
+            'schema:VideoObject',
+            'po:TVContent'
+        );
+    }
+
+    private function isAudio($lodinstance)
+    {
+        return $lodinstance->hasType(
+            'dcmitype:Sound',
+            'schema:AudioObject',
+            'po:RadioContent'
+        );
+    }
+
+    private function isImage($lodinstance)
+    {
+        return $lodinstance->hasType(
+            'dcmitype:StillImage',
+            'schema:Photograph',
+            'schema:ImageObject',
+            'foaf:Image'
+        );
+    }
+
+    private function isText($lodinstance)
+    {
+        return $lodinstance->hasType(
+            'dcmitype:Text'
+        );
+    }
+
+    /**
+     * Determine the media type of a LODInstance.
+     *
+     * @param \res\liblod\LODInstance
+     *
+     * @return string Media type if the LODInstance $lodinstance has
+     * rdf:type <media type>, where <media type> is a recognisable media RDF
+     * type; NULL otherwise; media type return value is one of
+     * 'audio', 'video', 'image', 'text'
+     */
     public static function getMediaType($lodinstance)
     {
         // early return if $lodinstance is not set
@@ -52,21 +65,21 @@ class RESMedia
             return NULL;
         }
 
-        if(isVideo($lodinstance))
+        if($this->isVideo($lodinstance))
         {
-            return 'video';
+            return self::VIDEO;
         }
-        else if(isAudio($lodinstance))
+        else if($this->isAudio($lodinstance))
         {
-            return 'audio';
+            return self::AUDIO;
         }
-        else if(isImage($lodinstance))
+        else if($this->isImage($lodinstance))
         {
-            return 'image';
+            return self::IMAGE;
         }
-        else if(isText($lodinstance))
+        else if($this->isText($lodinstance))
         {
-            return 'text';
+            return self::TEXT;
         }
 
         return NULL;

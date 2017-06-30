@@ -3,16 +3,27 @@ namespace res\libres;
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 
-use res\liblod\LOD;
-use res\liblod\Rdf;
-use res\libres\RESMedia;
-use res\libres\RESLicence;
+use \res\liblod\LOD;
+use \res\liblod\Rdf;
+use \res\libres\RESMedia;
+use \res\libres\RESLicence;
 
-/* Client for RES */
+/**
+ * Client for RES (Acropolis).
+ * This is a thin wrapper around the existing API for Acropolis which merges
+ * multiple requests into one sensible response, and also converts the RDF
+ * into arrays which can be encoded to JSON.
+ */
 class RESClient
 {
     private $acropolisUrl;
 
+    /**
+     * Constructor.
+     *
+     * @param string $acropolisUrl
+     * @param \res\liblod\LOD $lod
+     */
     public function __construct($acropolisUrl, $lod=NULL)
     {
         $this->acropolisUrl = $acropolisUrl;
@@ -24,7 +35,7 @@ class RESClient
         $this->lod = $lod;
     }
 
-    /*
+    /**
      * Fetch /audiences URI from RES
      * TODO may be multiple pages of audiences in future, so may need to revisit
      */
@@ -52,10 +63,17 @@ class RESClient
         return $audiences;
     }
 
-    /*
+    /**
      * Search RES for topics with related media.
-     * $media is one of 'audio', 'image', 'text' or 'video'
-     * $audiences is an array of recognised Acropolis audience URIs
+     *
+     * @param string $query Key words to search for
+     * @param string $media Media filter for search; one of
+     * RESMedia::AUDIO, RESMedia::IMAGE, RESMedia::TEXT or RESMedia::VIDEO
+     * @param int $limit Number of results to return
+     * @param int $offset Zero-indexed position of first result to return
+     * @param array $audiences An array of recognised Acropolis audience URIs
+     *
+     * @return array
      */
     public function search($query, $media, $limit=10, $offset=0, $audiences=NULL)
     {
@@ -140,15 +158,18 @@ class RESClient
         return $result;
     }
 
-    /*
+    /**
      * Fetch data about a single proxy URI and its olo:slot resources.
      * Convert into an associative array about the proxy and its media.
-     * $media: one of 'image', 'video', 'text' or 'audio'
-     * $format: 'json' (return convenient JSON representation) or 'rdf'
-     * (get raw RDF for all relevant resources)
-     *
      * NB this has to follow an inference chain and do lots of fetches to
      * get enough data to populate the Moodle UI properly.
+     *
+     * @param string $media Type of media to restrict results to; one of
+     * 'image', 'video', 'text' or 'audio'
+     * @param string $format Return format 'json' (return convenient JSON
+     * representation) or 'rdf' (get raw RDF for all relevant resources)
+     *
+     * @return mixed Array suitable for JSON encoding or Turtle string
      */
     public function proxy($proxyUri, $media, $format='json')
     {
@@ -236,9 +257,6 @@ class RESClient
                 $possibleMediaUris = array_merge($sameAsSlotItemUris, $topicUris);
                 foreach($possibleMediaUris as $possibleMediaUri)
                 {
-                    // we don't get any date statements unless we fetch the
-                    // resource; but fetching it serially is too slow; so for
-                    // now, just resolve using the graph we already have
                     $resource = $this->lod[$possibleMediaUri];
 
                     if(empty($resource))
