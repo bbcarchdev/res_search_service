@@ -30,7 +30,7 @@ $client = new RESClient($acropolisUrl);
 $app = new SlimApp();
 $container = $app->getContainer();
 
-$container['Controller'] = function($c) use($client) {
+$container['Controller'] = function($container) use($client) {
     return new Controller($client);
 };
 

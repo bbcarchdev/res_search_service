@@ -32,12 +32,8 @@ class Controller
 {
     private $client;
 
-    public function __construct($client=NULL)
+    public function __construct($client)
     {
-        if(empty($client))
-        {
-            $client = new RESClient(getenv('ACROPOLIS_URL'));
-        }
         $this->client = $client;
     }
 
