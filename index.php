@@ -11,6 +11,7 @@ use \res\libres\RESClient;
 
 $app = new \Slim\App();
 
+// get Acropolis URL from env; if not set, RESClient sets a default
 $acropolisUrl = getenv('ACROPOLIS_URL');
 
 // single HTML page: UI for searching Acropolis, showing search results, and

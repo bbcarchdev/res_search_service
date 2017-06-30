@@ -16,6 +16,8 @@ use \res\libres\RESLicence;
  */
 class RESClient
 {
+    const DEFAULT_ACROPOLIS_URL = 'http://acropolis.org.uk/';
+
     private $acropolisUrl;
 
     /**
@@ -26,6 +28,10 @@ class RESClient
      */
     public function __construct($acropolisUrl, $lod=NULL)
     {
+        if(empty($acropolisUrl))
+        {
+            $acropolisUrl = RESClient::DEFAULT_ACROPOLIS_URL;
+        }
         $this->acropolisUrl = $acropolisUrl;
 
         if(empty($lod))
