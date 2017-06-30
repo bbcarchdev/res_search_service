@@ -224,7 +224,8 @@ class RESClient
         // (mostly useful for dev)
         if($format === 'rdf')
         {
-            return Rdf::toTurtle($this->lod);
+            $rdf = new Rdf();
+            return $rdf->toTurtle($this->lod);
         }
         else
         {
