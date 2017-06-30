@@ -11,7 +11,7 @@ class RESMedia
     const IMAGE = 'image';
     const TEXT = 'text';
 
-    private function isVideo($lodinstance)
+    private static function isVideo($lodinstance)
     {
         return $lodinstance->hasType(
             'dcmitype:MovingImage',
@@ -21,7 +21,7 @@ class RESMedia
         );
     }
 
-    private function isAudio($lodinstance)
+    private static function isAudio($lodinstance)
     {
         return $lodinstance->hasType(
             'dcmitype:Sound',
@@ -30,7 +30,7 @@ class RESMedia
         );
     }
 
-    private function isImage($lodinstance)
+    private static function isImage($lodinstance)
     {
         return $lodinstance->hasType(
             'dcmitype:StillImage',
@@ -40,7 +40,7 @@ class RESMedia
         );
     }
 
-    private function isText($lodinstance)
+    private static function isText($lodinstance)
     {
         return $lodinstance->hasType(
             'dcmitype:Text'
@@ -65,19 +65,19 @@ class RESMedia
             return NULL;
         }
 
-        if($this->isVideo($lodinstance))
+        if(self::isVideo($lodinstance))
         {
             return self::VIDEO;
         }
-        else if($this->isAudio($lodinstance))
+        else if(self::isAudio($lodinstance))
         {
             return self::AUDIO;
         }
-        else if($this->isImage($lodinstance))
+        else if(self::isImage($lodinstance))
         {
             return self::IMAGE;
         }
-        else if($this->isText($lodinstance))
+        else if(self::isText($lodinstance))
         {
             return self::TEXT;
         }
