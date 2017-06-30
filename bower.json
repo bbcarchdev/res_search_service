@@ -1,0 +1,21 @@
+{
+  "name": "res_search_service",
+  "authors": [
+    "Elliot Smith <elliot.smith@bbc.co.uk>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "Apache v2",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "urijs": "^1.18.10",
+    "bootstrap": "^3.3.7"
+  }
+}
