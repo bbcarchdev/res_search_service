@@ -23,8 +23,7 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 use \res\liblod\LOD;
 use \res\liblod\Rdf;
-use \res\libres\RESMedia;
-use \res\libres\RESLicence;
+use \res\libres\RESTopicConverter;
 
 /**
  * Client for RES (Acropolis).
@@ -37,14 +36,17 @@ class RESClient
     const DEFAULT_ACROPOLIS_URL = 'http://acropolis.org.uk/';
 
     private $acropolisUrl;
+    private $lod;
+    private $converter;
 
     /**
      * Constructor.
      *
      * @param string $acropolisUrl
      * @param \res\liblod\LOD $lod
+     * @param \res\libres\RESTopicConverter $converter
      */
-    public function __construct($acropolisUrl=NULL, $lod=NULL)
+    public function __construct($acropolisUrl=NULL, $lod=NULL, $converter=NULL)
     {
         if(empty($acropolisUrl))
         {
@@ -57,6 +59,12 @@ class RESClient
             $lod = new LOD();
         }
         $this->lod = $lod;
+
+        if(empty($converter))
+        {
+            $converter = new RESTopicConverter();
+        }
+        $this->converter = $converter;
     }
 
     /**
@@ -227,108 +235,7 @@ class RESClient
             $rdf = new Rdf();
             return $rdf->toTurtle($this->lod);
         }
-        else
-        {
-            $proxyLabel = "{$proxy['rdfs:label,dcterms:title']}";
-            $proxyDescription = "{$proxy['dcterms:description,rdfs:comment,po:synopsis']}";
 
-            // convert relevant resources to JSON
-            $pages = array();
-            $players = array();
-            $content = array();
-
-            // extract web pages, only from the proxy itself
-            if($media === 'text')
-            {
-                foreach($proxy['foaf:page'] as $page)
-                {
-                    $pageUri = "{$page->value}";
-
-                    // ignore non-HTTP URIs
-                    if(substr($pageUri, 0, 4) === 'http')
-                    {
-                        $pages[] = array(
-                            'source_uri' => $proxyUri,
-                            'uri' => $pageUri,
-                            'label' => $proxyLabel,
-                            'mediaType' => 'web page'
-                        );
-                    }
-                }
-            }
-
-            // extract players and content via olo:slot->olo:item
-            foreach($slotItemUris as $slotItemUri)
-            {
-                // retrieve the URIs of the media which are same as the slot item
-                // ($slotItemUri is a RES proxy URI, so this gives us the URI
-                // of the original resource)
-                $sameAsSlotItemUris = $this->lod->getSameAs($slotItemUri);
-
-                // also get the topics or primary topics of the resources which
-                // are sameAs the slot item
-                $topicUris = array();
-                $topicPredicates = 'foaf:topic,foaf:primaryTopic,schema:about';
-                $licensePredicates = 'cc:license,dcterms:license,' .
-                                     'dcterms:rights,dcterms:accessRights,' .
-                                     'xhtml:license';
-
-                foreach($sameAsSlotItemUris as $sameAsSlotItemUri)
-                {
-                    $sameAsResource = $this->lod[$sameAsSlotItemUri];
-                    $topicUris[] = "{$sameAsResource[$topicPredicates]}";
-                }
-
-                $possibleMediaUris = array_merge($sameAsSlotItemUris, $topicUris);
-                foreach($possibleMediaUris as $possibleMediaUri)
-                {
-                    $resource = $this->lod[$possibleMediaUri];
-
-                    if(empty($resource))
-                    {
-                        continue;
-                    }
-
-                    // if it's got an mrss:player or mrss:content, we want it;
-                    // but we reject any resources which don't match the media
-                    // type filter (if set)
-                    foreach($resource['mrss:player,mrss:content'] as $mediaUri)
-                    {
-                        $mediaType = RESMedia::getMediaType($resource);
-
-                        if($mediaType === $media)
-                        {
-                            $licence = "{$resource[$licensePredicates]}";
-                            if(!empty($licence))
-                            {
-                                $licence = RESLicence::getShortForm($licence);
-                            }
-
-                            $players[] = array(
-                                'sourceUri' => $possibleMediaUri,
-                                'uri' => "$mediaUri",
-                                'mediaType' => $mediaType,
-                                'license' => $licence,
-                                'label' => "{$resource['dcterms:title,rdfs:label']}",
-                                'description' => "{$resource['dcterms:description,rdfs:comment']}",
-                                'thumbnail' => "{$resource['schema:thumbnailUrl']}",
-                                'date' => "{$resource['dcterms:date']}",
-                                'location' => "{$resource['lio:location']}"
-                            );
-                        }
-                    }
-                }
-            }
-
-            return array(
-                'uri' => "$proxyUri",
-                'label' => $proxyLabel,
-                'description' => $proxyDescription,
-                'media' => $media,
-                'players' => $players,
-                'content' => $content,
-                'pages' => $pages
-            );
-        }
+        return $this->converter->convert($proxyUri, $this->lod);
     }
 }
