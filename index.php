@@ -17,6 +17,30 @@
  * limitations under the License.
  */
 
+// set capabilities; this can be overridden in a capabilities.json file
+// in this directory if desired
+$capabilities = NULL;
+
+$capabilitiesFile = __DIR__ . 'capabilities.json';
+if(file_exists($capabilitiesFile))
+{
+    $capabilities = json_decode(file_get_contents($capabilitiesFile));
+}
+
+if(empty($capabilities))
+{
+    // prefix for all service URIs
+    $apiPrefix = '/';
+
+    $capabilities = array(
+        'home' => $apiPrefix,
+        'search' => $apiPrefix . 'search',
+        'proxy' => $apiPrefix . 'proxy',
+        'audiences' => $apiPrefix . 'audiences'
+    );
+}
+
+// start the app
 require_once(__DIR__ . '/vendor/autoload.php');
 
 use \Slim\App as SlimApp;
@@ -30,13 +54,13 @@ $client = new RESClient($acropolisUrl);
 $app = new SlimApp();
 $container = $app->getContainer();
 
-$container['Controller'] = function($container) use($client) {
-    return new Controller($client);
+$container['Controller'] = function($container) use($client, $capabilities) {
+    return new Controller($client, $capabilities);
 };
 
-$app->get('/', 'Controller:home');
-$app->get('/api/audiences', 'Controller:audiences');
-$app->get('/api/search', 'Controller:search');
-$app->get('/api/proxy', 'Controller:proxy');
+$app->get($capabilities['home'], 'Controller:home');
+$app->get($capabilities['audiences'], 'Controller:audiences');
+$app->get($capabilities['search'], 'Controller:search');
+$app->get($capabilities['proxy'], 'Controller:proxy');
 
 $app->run();

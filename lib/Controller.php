@@ -32,9 +32,13 @@ class Controller
 {
     private $client;
 
-    public function __construct($client)
+    // map from endpoint names to paths
+    private $capabilities;
+
+    public function __construct($client, $capabilities)
     {
         $this->client = $client;
+        $this->capabilities = $capabilities;
     }
 
     // single HTML page: UI for searching Acropolis, showing search results, and
@@ -45,6 +49,9 @@ class Controller
     public function home(Request $request, Response $response)
     {
         $html = file_get_contents(__DIR__ . '/../views/ui.html');
+
+        $html = preg_replace('/__CAPABILITIES__/', json_encode($this->capabilities), $html);
+
         $response->getBody()->write($html);
         return $response->withHeader('Content-Type', 'text/html')
                         ->withHeader('Content-Location', '/ui.html');
@@ -73,7 +80,7 @@ class Controller
         // for each item in the results, construct a URI pointing at the plugin
         // service API, in the form
         // http://<plugin service domain and port>/api/proxy?uri=<topic URI>
-        $baseApiUri = $request->getUri()->withPath('/api/proxy');
+        $baseApiUri = $request->getUri()->withPath($this->capabilities['proxy']);
 
         foreach($result['items'] as $index => $item)
         {

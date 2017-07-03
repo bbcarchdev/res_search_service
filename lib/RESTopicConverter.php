@@ -38,7 +38,7 @@ class RESTopicConverter
      *
      * @return mixed JSON object representing the topic and its media
      */
-    public function convert($proxyUri, $lod)
+    public function convert($proxyUri, $media, $slotItemUris, $lod)
     {
         $proxy = $lod->locate[$proxyUri];
 

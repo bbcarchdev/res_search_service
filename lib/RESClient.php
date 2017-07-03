@@ -236,6 +236,6 @@ class RESClient
             return $rdf->toTurtle($this->lod);
         }
 
-        return $this->converter->convert($proxyUri, $this->lod);
+        return $this->converter->convert($proxyUri, $media, $slotItemUris, $this->lod);
     }
 }

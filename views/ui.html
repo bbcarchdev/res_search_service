@@ -5,7 +5,7 @@
     <title>RES search</title>
 
     <!-- Bootstrap -->
-    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .flex {
@@ -219,15 +219,15 @@
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Include all compiled plugins -->
-    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- URI manipulation -->
-    <script src="./bower_components/urijs/src/URI.min.js"></script>
+    <script src="../bower_components/urijs/src/URI.min.js"></script>
 
-    <script src="./js/app.js"></script>
+    <script src="../js/app.js"></script>
 
     <script type="text/javascript">
       // when window is resized, reset the padding on top of the body so
@@ -246,12 +246,13 @@
         setBodyPaddingTop();
         $(window).resize(setBodyPaddingTop);
 
-        var searchEndpoint = 'http://' + window.location.host + '/api/';
+        var host = 'http://' + window.location.host;
+        var capabilities = __CAPABILITIES__;
 
         // get the callback URL from the query params to this page
         var callbackUrl = URI(window.location).search(true)['callback'];
 
-        var app = window.App(searchEndpoint, callbackUrl);
+        var app = window.App(host, capabilities, callbackUrl);
         app.init();
       });
     </script>

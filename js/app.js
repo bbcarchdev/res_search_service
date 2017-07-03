@@ -16,16 +16,16 @@
  * limitations under the License.
  */
 
-// endpoint is the API endpoint of the RES search service which proxies for RES
-// proper
-window.App = function (endpoint, callbackUrl) {
+// host is http://<domain>:<port> for the RES search service which proxies for RES;
+// capabilities is a map from service names to paths (which are appended to host)
+window.App = function (host, capabilities, callbackUrl) {
   var that = {
     init: function () {
       var searchForm = SearchForm('#search-form');
       var searchExpander = SearchExpander('#search-expander');
       var searchResultsPanel = SearchResultsPanel('#search-results-panel');
       var topicPanel = TopicPanel('#topic-panel', callbackUrl);
-      var client = RESClient(endpoint, callbackUrl);
+      var client = RESClient(host, capabilities, callbackUrl);
       var eventCoordinator = EventCoordinator(
         searchForm,
         searchExpander,
@@ -548,7 +548,7 @@ var TopicPanel = function (selector, callbackUrl) {
 
 // get data from Acropolis through the pluginservice proxy, which
 // converts it into friendly JSON
-var RESClient = function (endpoint, callbackUrl) {
+var RESClient = function (host, capabilities, callbackUrl) {
   var that = $({});
 
   var offset = 0;
@@ -583,7 +583,8 @@ var RESClient = function (endpoint, callbackUrl) {
       }
     }
 
-    var url = endpoint + 'search?q=' + encodeURIComponent(query) +
+    var url = host + capabilities['search'] +
+      '?q=' + encodeURIComponent(query) +
       '&offset=' + offset + '&media=' + media + '&' + audiencesQuerystring;
 
     console.log('search URL: ' + url);
@@ -634,7 +635,7 @@ var RESClient = function (endpoint, callbackUrl) {
   };
 
   that.audiences = function () {
-    var audiencesUri = endpoint + 'audiences';
+    var audiencesUri = host + capabilities['audiences'];
 
     $.ajax({
       url: audiencesUri,

@@ -50,7 +50,7 @@ to the root of the application and do:
 ./vendor/bin/robo server
 ```
 
-This runs the server on `http://localhost:8888`.
+You can access the search application at `http://localhost:8888/api/`.
 
 Alternatively, you can run it as a PHP application using a standard web server
 like Apache.
