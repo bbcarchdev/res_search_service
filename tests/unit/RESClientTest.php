@@ -21,8 +21,10 @@ use PHPUnit\Framework\TestCase;
 
 use \res\liblod\LOD;
 use res\libres\RESClient;
+use res\libres\RESMedia;
 
 const FIXTURES_AUDIENCE = __DIR__ . '/../fixtures/audiences.ttl';
+const FIXTURES_SEARCH_DENCH = __DIR__ . '/../fixtures/search_dench.ttl';
 
 final class RESClientTest extends TestCase
 {
@@ -35,5 +37,21 @@ final class RESClientTest extends TestCase
         $audiences = $client->audiences();
 
         $this->assertEquals(4, count($audiences));
+    }
+
+    function testQuery()
+    {
+        $lod = new LOD();
+        $lod->loadRdf(file_get_contents(FIXTURES_SEARCH_DENCH), 'text/turtle');
+
+        $client = new RESClient(NULL, $lod);
+        $results = $client->search('dench', RESMedia::IMAGE, 5);
+
+        $this->assertEquals('http://acropolis.org.uk/?q=dench&media=image&limit=5&offset=0', $results['acropolis_uri']);
+        $this->assertEquals(4, count($results['items']));
+        $this->assertTrue($results['hasNext']);
+        $this->assertEquals(0, $results['offset']);
+        $this->assertEquals(5, $results['limit']);
+        $this->assertEquals('dench', $results['query']);
     }
 }

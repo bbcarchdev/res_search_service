@@ -1,0 +1,90 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix po: <http://purl.org/ontology/po/> .
+@prefix cert: <http://www.w3.org/ns/auth/cert#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix mrss: <http://search.yahoo.com/mrss/> .
+@prefix xhtml: <http://www.w3.org/1999/xhtml/vocab#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix acl: <http://www.w3.org/ns/auth/acl#> .
+@prefix wdrs: <http://www.w3.org/2007/05/powder-s#> .
+@prefix schema: <http://schema.org/> .
+@prefix res: <http://bbcarchdev.github.io/ns/spindle#> .
+@prefix osd: <http://a9.com/-/spec/opensearch/1.1/> .
+@prefix olo: <http://purl.org/ontology/olo/core#> .
+
+<http://acropolis.org.uk/>
+    a void:Dataset ;
+    rdfs:label "Everything"@en-gb .
+
+<http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id>
+    a frbr:Work, schema:Photograph ;
+    rdfs:comment "Dame Judi Dench photographed for BBC news and current affairs analysis programme, The Andrew Marr Show, TX 16th Jan 2011, 16/01/201. Laughing Landscape format"@en ;
+    rdfs:label "Dame Judi Dench laughing, Jan 2011"@en .
+
+<http://acropolis.org.uk/3feb305f7ff643f999490eaeab768b23#id>
+    a frbr:Work, schema:Photograph ;
+    rdfs:comment "Dame Judi Dench photographed for BBC news and current affairs analysis programme, The Andrew Marr Show, TX 16th Jan 2011, 16/01/201."@en ;
+    rdfs:label "Dame Judi Dench, Jan 2011"@en .
+
+<http://acropolis.org.uk/?limit=5&media=image&q=dench>
+    osd:Language "cy-gb", "en-gb", "ga-gb", "gd-gb" ;
+    osd:template "http://acropolis.org.uk/?for={odrl:Party?}&lang={language?}&limit={count?}&media={dct:DCMIType?}&offset={startIndex?}&q={searchTerms?}&type={dct:IMT?}" ;
+    dct:hasFormat <http://acropolis.org.uk/index.ttl?q=dench&limit=5&media=image> ;
+    dct:isPartOf <http://acropolis.org.uk/> ;
+    olo:slot <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#2cbf4d6fa0db4b58b574c28722e061a7>, <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#3feb305f7ff643f999490eaeab768b23>, <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#a75e5495087d4db89eccc6a52cc0e3a4>, <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#fba893cacfe04d8ab4ddc0fe047fe109> ;
+    a void:Dataset ;
+    xhtml:next <http://acropolis.org.uk/?limit=5&media=image&offset=5&q=dench> ;
+    rdfs:label "Everything containing \"dench\" which has related image available to everyone"@en-gb ;
+    rdfs:seeAlso <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id>, <http://acropolis.org.uk/3feb305f7ff643f999490eaeab768b23#id>, <http://acropolis.org.uk/a75e5495087d4db89eccc6a52cc0e3a4#id>, <http://acropolis.org.uk/fba893cacfe04d8ab4ddc0fe047fe109#id> .
+
+<http://acropolis.org.uk/a75e5495087d4db89eccc6a52cc0e3a4#id>
+    a owl:Thing, skos:Concept, <http://www.wikidata.org/ontology#Item>, foaf:Person ;
+    rdfs:comment "Dame Judith Olivia \"Judi\" Dench, CH, DBE, FRSA (born 9 December 1934) is an English actress and author. Dench made her professional debut in 1957 with the Old Vic Company. Over the following few years she performed in several of Shakespeare's plays in such roles as Ophelia in Hamlet, Juliet in Romeo and Juliet and Lady Macbeth in Macbeth. Although most of her work during this period was in theatre, she also branched into film work, and won a BAFTA Award as Most Promising Newcomer. She drew strong reviews for her leading role in the musical Cabaret in 1968.", "English film, stage and television actress"@en ;
+    rdfs:label "Dench, Judi"@en, "Judi Dench", "Judi Dench"@en-gb .
+
+<http://acropolis.org.uk/fba893cacfe04d8ab4ddc0fe047fe109#id>
+    a frbr:Work, schema:Photograph ;
+    rdfs:comment "Dame Judi Dench photographed for BBC news and current affairs analysis programme, The Andrew Marr Show, TX 16th Jan 2011, 16/01/201."@en ;
+    rdfs:label "Dame Judi Dench, Jan 2011"@en .
+
+<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#2cbf4d6fa0db4b58b574c28722e061a7>
+    olo:index 1 ;
+    olo:item <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id> ;
+    a olo:Slot ;
+    rdfs:label "Result #1"@en-gb .
+
+<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#3feb305f7ff643f999490eaeab768b23>
+    olo:index 2 ;
+    olo:item <http://acropolis.org.uk/3feb305f7ff643f999490eaeab768b23#id> ;
+    a olo:Slot ;
+    rdfs:label "Result #2"@en-gb .
+
+<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#a75e5495087d4db89eccc6a52cc0e3a4>
+    olo:index 4, 5 ;
+    olo:item <http://acropolis.org.uk/a75e5495087d4db89eccc6a52cc0e3a4#id> ;
+    a olo:Slot ;
+    rdfs:label "Result #4"@en-gb, "Result #5"@en-gb .
+
+<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#fba893cacfe04d8ab4ddc0fe047fe109>
+    olo:index 3 ;
+    olo:item <http://acropolis.org.uk/fba893cacfe04d8ab4ddc0fe047fe109#id> ;
+    a olo:Slot ;
+    rdfs:label "Result #3"@en-gb .
+
+<http://acropolis.org.uk/index.ttl?q=dench&limit=5&media=image>
+    dct:format <http://purl.org/NET/mediatypes/text/turtle> ;
+    a dcmitype:Text, <http://www.w3.org/ns/formats/Turtle> .
+
