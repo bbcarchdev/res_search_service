@@ -70,6 +70,7 @@ var SearchForm = function (selector) {
     input.attr('disabled', 'disabled');
     button.attr('disabled', 'disabled');
     mediaFilter.attr('disabled', 'disabled');
+    searchExpander.attr('disabled', 'disabled');
   };
 
   // enable button and input
@@ -77,6 +78,7 @@ var SearchForm = function (selector) {
     input.removeAttr('disabled');
     button.removeAttr('disabled');
     mediaFilter.removeAttr('disabled');
+    searchExpander.removeAttr('disabled');
   };
 
   // set audiences to include with the search
