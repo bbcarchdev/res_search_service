@@ -21,15 +21,18 @@
 // in this directory if desired
 $capabilities = NULL;
 
-$capabilitiesFile = __DIR__ . 'capabilities.json';
+$capabilitiesFile = __DIR__ . '/capabilities.json';
 if(file_exists($capabilitiesFile))
 {
-    $capabilities = json_decode(file_get_contents($capabilitiesFile));
+    // if json_decode is passed TRUE as its second argument, JSON is decoded
+    // to an associative array rather than a stdClass instance
+    $asArray = TRUE;
+    $capabilities = json_decode(file_get_contents($capabilitiesFile), $asArray);
 }
 
 if(empty($capabilities))
 {
-    // prefix for all service URIs
+    // set default paths for all service URIs
     $apiPrefix = '/';
 
     $capabilities = array(
