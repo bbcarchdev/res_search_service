@@ -23,7 +23,6 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \GuzzleHttp\Psr7\stream_for;
 
 use \res\libres\RESMedia;
 use \res\libres\RESClient;
@@ -97,19 +96,9 @@ class Controller
     {
         $topicUri = $request->getQueryParam('uri', $default=NULL);
         $media = $request->getQueryParam('media', $default=RESMedia::IMAGE);
-        $format = $request->getQueryParam('format', $default='json');
 
-        $result = $this->client->proxy($topicUri, $media, $format);
+        $result = $this->client->proxy($topicUri, $media);
 
-        if($format === 'json')
-        {
-            return $response->withJson($result);
-        }
-        else if($format === 'rdf')
-        {
-            $stream = \GuzzleHttp\Psr7\stream_for($result);
-            return $response->withBody($stream)
-                            ->withHeader('Content-Type', 'text/turtle');
-        }
+        return $response->withJson($result);
     }
 }

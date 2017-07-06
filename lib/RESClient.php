@@ -200,20 +200,19 @@ class RESClient
      * NB this has to follow an inference chain and do lots of fetches to
      * get enough data to populate the Moodle UI properly.
      *
+     * @param string $proxyUri URI of Acropolis proxy resource to fetch
      * @param string $media Type of media to restrict results to; one of
      * 'image', 'video', 'text' or 'audio'
-     * @param string $format Return format 'json' (return convenient JSON
-     * representation) or 'rdf' (get raw RDF for all relevant resources)
      *
-     * @return mixed Array suitable for JSON encoding or Turtle string
+     * @return mixed Array suitable for JSON encoding
      */
-    public function proxy($proxyUri, $media, $format='json')
+    public function proxy($proxyUri, $media)
     {
         $proxy = $this->lod->fetch($proxyUri);
 
         if(!$proxy)
         {
-            return ($format === 'json' ? NULL : '');
+            return NULL;
         }
 
         // find all the resources which could be useful;
@@ -231,14 +230,6 @@ class RESClient
         // fetch the slot resources; we need these to be able to get the
         // players
         $this->lod->fetchAll($slotItemUris);
-
-        // if the format is RDF, return the whole LOD object as Turtle
-        // (mostly useful for dev)
-        if($format === 'rdf')
-        {
-            $rdf = new Rdf();
-            return $rdf->toTurtle($this->lod);
-        }
 
         return $this->converter->convert($proxyUri, $media, $slotItemUris, $this->lod);
     }
