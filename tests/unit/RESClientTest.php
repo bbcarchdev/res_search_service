@@ -136,4 +136,23 @@ final class RESClientTest extends TestCase
         $client = new RESClient(NULL, $lod, $converter);
         $client->proxy($uri, RESMedia::IMAGE);
     }
+
+    function testProxyBadURI()
+    {
+        $uri = 'http://foo.bar';
+
+        $lod = $this->getMockBuilder(LOD::class)
+                    ->setMethods(['fetch'])
+                    ->getMock();
+
+        $lod->expects($this->once())
+            ->method('fetch')
+            ->with($uri)
+            ->willReturn(NULL);
+
+        $client = new RESClient(NULL, $lod);
+        $result = $client->proxy($uri, RESMedia::IMAGE);
+        $this->assertEquals(NULL, $result,
+                            'should get NULL back if URI won\'t resolve');
+    }
 }
