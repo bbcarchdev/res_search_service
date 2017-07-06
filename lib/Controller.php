@@ -31,7 +31,8 @@ class Controller
 {
     private $client;
 
-    // map from endpoint names to paths
+    // map from endpoint names to paths; this is used in the HTML interface
+    // to set the paths to the capabilities in the search service dynamically
     private $capabilities;
 
     public function __construct($client, $capabilities)
@@ -44,7 +45,10 @@ class Controller
     // displaying a topic with its media;
     // call with /?callback=<callback URL>; when a resource is selected, the
     // UI is redirected to
-    // <callback URL>?media=<JSON-encoded representation of the selected resource>
+    // <callback URL>?media=<JSON-encoded representation of the selected resource>;
+    // capabilities are written into a JavaScript element in the HTML so the
+    // UI knows where the service endpoints are (and they don't have to be
+    // hard-coded into the UI code)
     public function minimal(Request $request, Response $response)
     {
         $html = file_get_contents(__DIR__ . '/../views/minimal.html');
@@ -77,7 +81,8 @@ class Controller
 
         // for each item in the results, construct a URI pointing at the plugin
         // service API, in the form
-        // http://<plugin service domain and port>/api/proxy?uri=<topic URI>
+        // http://<plugin service domain and port>/proxy?uri=<topic URI>
+        // (where '/proxy' comes from the capabilities mapping for this Controller)
         $baseApiUri = $request->getUri()->withPath($this->capabilities['proxy']);
 
         foreach($result['items'] as $index => $item)
