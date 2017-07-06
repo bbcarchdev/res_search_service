@@ -557,6 +557,7 @@ var RESClient = function (host, capabilities, callbackUrl) {
   var limit = 10;
   var lastQuery = null;
   var lastMedia = null;
+  var lastAudiences = null;
 
   that.reset = function () {
     offset = 0;
@@ -573,12 +574,13 @@ var RESClient = function (host, capabilities, callbackUrl) {
 
     lastQuery = query;
     lastMedia = media;
+    lastAudiences = audiences;
 
     var url = host + capabilities['search'] +
       '?q=' + encodeURIComponent(query) +
       '&offset=' + offset + '&media=' + media;
 
-    if (audiences.length > 0) {
+    if (audiences && audiences.length > 0) {
       var audiencesQuerystring = '';
       for (var i = 0; i < audiences.length; i++) {
         if (audiencesQuerystring !== '') {
@@ -616,7 +618,7 @@ var RESClient = function (host, capabilities, callbackUrl) {
     }
 
     offset += limit;
-    that.search({query: lastQuery, media: lastMedia});
+    that.search({query: lastQuery, media: lastMedia, audiences: lastAudiences});
   };
 
   that.topic = function (topicUri) {
