@@ -186,10 +186,10 @@ class RESClient
                     }
                 }
             }
-        }
 
-        // do we have more results? (yes if xhtml:next statement present)
-        $result['hasNext'] = !empty("{$searchResultResource['xhtml:next']}");
+            // do we have more results? (yes if xhtml:next statement present)
+            $result['hasNext'] = !empty("{$searchResultResource['xhtml:next']}");
+        }
 
         return $result;
     }
