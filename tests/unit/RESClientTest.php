@@ -28,6 +28,8 @@ use res\libres\RESTopicConverter;
 
 const FIXTURES_AUDIENCE = __DIR__ . '/../fixtures/audiences.ttl';
 const FIXTURES_SEARCH_DENCH = __DIR__ . '/../fixtures/search_dench.ttl';
+const FIXTURES_SEARCH_DENCH_OFFSET = __DIR__ . '/../fixtures/search_dench_offset.ttl';
+const FIXTURES_SEARCH_DENCH_AUDIENCES = __DIR__ . '/../fixtures/search_dench_audiences.ttl';
 const FIXTURES_PROXY_DENCH = __DIR__ . '/../fixtures/proxy_dench.ttl';
 
 final class RESClientTest extends TestCase
@@ -83,6 +85,49 @@ final class RESClientTest extends TestCase
         $this->assertTrue($results['hasNext']);
         $this->assertEquals(0, $results['offset']);
         $this->assertEquals(5, $results['limit']);
+        $this->assertEquals('dench', $results['query']);
+    }
+
+    function testSearchWithOffset()
+    {
+        $lod = new LOD();
+        $lod->loadRdf(file_get_contents(FIXTURES_SEARCH_DENCH_OFFSET), 'text/turtle');
+
+        // search uses resolve(), so will only do HTTP GET if the search URI
+        // isn't in the context; it is, because we manually load its RDF
+        $client = new RESClient(NULL, $lod);
+        $results = $client->search('dench', RESMedia::IMAGE, 15, 10);
+
+        $acropolisUri = 'http://acropolis.org.uk/?limit=15&media=image&offset=10&q=dench';
+        $this->assertEquals($acropolisUri, $results['acropolis_uri']);
+        $this->assertEquals(0, count($results['items']));
+        $this->assertFalse($results['hasNext']);
+        $this->assertEquals(10, $results['offset']);
+        $this->assertEquals(15, $results['limit']);
+        $this->assertEquals('dench', $results['query']);
+    }
+
+    function testSearchWithAudiences()
+    {
+        $lod = new LOD();
+        $lod->loadRdf(file_get_contents(FIXTURES_SEARCH_DENCH_AUDIENCES), 'text/turtle');
+
+        // search uses resolve(), so will only do HTTP GET if the search URI
+        // isn't in the context; it is, because we manually load its RDF
+        $client = new RESClient(NULL, $lod);
+
+        // note that the audience URIs are sorted alphabetically in the response
+        // from Acropolis; so we send them into search() in the wrong order
+        // to make sure that we apply the same sort
+        $audiences = array('http://foo.bar', 'http://bar.baz');
+        $results = $client->search('dench', RESMedia::IMAGE, 3, 1, $audiences);
+
+        $acropolisUri = 'http://acropolis.org.uk/?for=http%3A%2F%2Fbar.baz&for=http%3A%2F%2Ffoo.bar&limit=3&media=image&offset=1&q=dench';
+        $this->assertEquals($acropolisUri, $results['acropolis_uri']);
+        $this->assertEquals(3, count($results['items']));
+        $this->assertTrue($results['hasNext']);
+        $this->assertEquals(1, $results['offset']);
+        $this->assertEquals(3, $results['limit']);
         $this->assertEquals('dench', $results['query']);
     }
 

@@ -29,30 +29,22 @@
     a void:Dataset ;
     rdfs:label "Everything"@en-gb .
 
-<http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id>
-    a frbr:Work, schema:Photograph ;
-    rdfs:comment "Dame Judi Dench photographed for BBC news and current affairs analysis programme, The Andrew Marr Show, TX 16th Jan 2011, 16/01/201. Laughing Landscape format"@en ;
-    rdfs:label "Dame Judi Dench laughing, Jan 2011"@en .
-
 <http://acropolis.org.uk/3feb305f7ff643f999490eaeab768b23#id>
     a frbr:Work, schema:Photograph ;
     rdfs:comment "Dame Judi Dench photographed for BBC news and current affairs analysis programme, The Andrew Marr Show, TX 16th Jan 2011, 16/01/201."@en ;
     rdfs:label "Dame Judi Dench, Jan 2011"@en .
 
-<http://acropolis.org.uk/?limit=5&media=image&q=dench>
+<http://acropolis.org.uk/?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&offset=1&q=dench>
     osd:Language "cy-gb", "en-gb", "ga-gb", "gd-gb" ;
     osd:template "http://acropolis.org.uk/?for={odrl:Party?}&lang={language?}&limit={count?}&media={dct:DCMIType?}&offset={startIndex?}&q={searchTerms?}&type={dct:IMT?}" ;
-    dct:hasFormat <http://acropolis.org.uk/index.ttl?q=dench&limit=5&media=image> ;
+    dct:hasFormat <http://acropolis.org.uk/index.ttl?media=image&q=dench&for=http://bar.baz&for=http://foo.bar&limit=3&offset=1> ;
     dct:isPartOf <http://acropolis.org.uk/> ;
-
-    # one of these slot resources is bogus, to test what happens when the slots go wrong (they shouldn't);
-    # another points at a useless information resource, which should be filtered out
-    olo:slot <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#2cbf4d6fa0db4b58b574c28722e061a7>, <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#3feb305f7ff643f999490eaeab768b23>, <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#a75e5495087d4db89eccc6a52cc0e3a4>, <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#fba893cacfe04d8ab4ddc0fe047fe109>, <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#bogus>, <http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#useless> ;
-
+    olo:slot <http://acropolis.org.uk/index.ttl?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&offset=1&q=dench#3feb305f7ff643f999490eaeab768b23>, <http://acropolis.org.uk/index.ttl?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&offset=1&q=dench#a75e5495087d4db89eccc6a52cc0e3a4>, <http://acropolis.org.uk/index.ttl?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&offset=1&q=dench#fba893cacfe04d8ab4ddc0fe047fe109> ;
     a void:Dataset ;
-    xhtml:next <http://acropolis.org.uk/?limit=5&media=image&offset=5&q=dench> ;
-    rdfs:label "Everything containing \"dench\" which has related image available to everyone"@en-gb ;
-    rdfs:seeAlso <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id>, <http://acropolis.org.uk/3feb305f7ff643f999490eaeab768b23#id>, <http://acropolis.org.uk/a75e5495087d4db89eccc6a52cc0e3a4#id>, <http://acropolis.org.uk/fba893cacfe04d8ab4ddc0fe047fe109#id> .
+    xhtml:next <http://acropolis.org.uk/?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&offset=4&q=dench> ;
+    xhtml:prev <http://acropolis.org.uk/?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&q=dench> ;
+    rdfs:label "Everything containing \"dench\" which has related image"@en-gb ;
+    rdfs:seeAlso <http://acropolis.org.uk/3feb305f7ff643f999490eaeab768b23#id>, <http://acropolis.org.uk/a75e5495087d4db89eccc6a52cc0e3a4#id>, <http://acropolis.org.uk/fba893cacfe04d8ab4ddc0fe047fe109#id> .
 
 <http://acropolis.org.uk/a75e5495087d4db89eccc6a52cc0e3a4#id>
     a owl:Thing, skos:Concept, <http://www.wikidata.org/ontology#Item>, foaf:Person ;
@@ -64,41 +56,25 @@
     rdfs:comment "Dame Judi Dench photographed for BBC news and current affairs analysis programme, The Andrew Marr Show, TX 16th Jan 2011, 16/01/201."@en ;
     rdfs:label "Dame Judi Dench, Jan 2011"@en .
 
-<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#2cbf4d6fa0db4b58b574c28722e061a7>
-    olo:index 1 ;
-    olo:item <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id> ;
-    a olo:Slot ;
-    rdfs:label "Result #1"@en-gb .
-
-<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#3feb305f7ff643f999490eaeab768b23>
+<http://acropolis.org.uk/index.ttl?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&offset=1&q=dench#3feb305f7ff643f999490eaeab768b23>
     olo:index 2 ;
     olo:item <http://acropolis.org.uk/3feb305f7ff643f999490eaeab768b23#id> ;
     a olo:Slot ;
     rdfs:label "Result #2"@en-gb .
 
-<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#a75e5495087d4db89eccc6a52cc0e3a4>
-    olo:index 4, 5 ;
+<http://acropolis.org.uk/index.ttl?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&offset=1&q=dench#a75e5495087d4db89eccc6a52cc0e3a4>
+    olo:index 4 ;
     olo:item <http://acropolis.org.uk/a75e5495087d4db89eccc6a52cc0e3a4#id> ;
     a olo:Slot ;
-    rdfs:label "Result #4"@en-gb, "Result #5"@en-gb .
+    rdfs:label "Result #4"@en-gb .
 
-<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#useless>
-    olo:index 6 ;
-    olo:item <http://acropolis.org.uk/uselesss#id> ;
-    a olo:Slot ;
-    rdfs:label "Result #6"@en-gb .
-
-<http://acropolis.org.uk/uselesss#id>
-    a foaf:Document ;
-    rdfs:label "Information about Judy Dench"@en-gb .
-
-<http://acropolis.org.uk/index.ttl?limit=5&media=image&q=dench#fba893cacfe04d8ab4ddc0fe047fe109>
+<http://acropolis.org.uk/index.ttl?for=http://bar.baz&for=http://foo.bar&limit=3&media=image&offset=1&q=dench#fba893cacfe04d8ab4ddc0fe047fe109>
     olo:index 3 ;
     olo:item <http://acropolis.org.uk/fba893cacfe04d8ab4ddc0fe047fe109#id> ;
     a olo:Slot ;
     rdfs:label "Result #3"@en-gb .
 
-<http://acropolis.org.uk/index.ttl?q=dench&limit=5&media=image>
+<http://acropolis.org.uk/index.ttl?media=image&q=dench&for=http://bar.baz&for=http://foo.bar&limit=3&offset=1>
     dct:format <http://purl.org/NET/mediatypes/text/turtle> ;
     a dcmitype:Text, <http://www.w3.org/ns/formats/Turtle> .
 

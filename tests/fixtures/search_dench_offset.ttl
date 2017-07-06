@@ -1,0 +1,44 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix po: <http://purl.org/ontology/po/> .
+@prefix cert: <http://www.w3.org/ns/auth/cert#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix mrss: <http://search.yahoo.com/mrss/> .
+@prefix xhtml: <http://www.w3.org/1999/xhtml/vocab#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix acl: <http://www.w3.org/ns/auth/acl#> .
+@prefix wdrs: <http://www.w3.org/2007/05/powder-s#> .
+@prefix schema: <http://schema.org/> .
+@prefix res: <http://bbcarchdev.github.io/ns/spindle#> .
+@prefix osd: <http://a9.com/-/spec/opensearch/1.1/> .
+@prefix olo: <http://purl.org/ontology/olo/core#> .
+
+<http://acropolis.org.uk/>
+    a void:Dataset ;
+    rdfs:label "Everything"@en-gb .
+
+<http://acropolis.org.uk/?limit=5&media=image&offset=10&q=dench>
+    osd:Language "cy-gb", "en-gb", "ga-gb", "gd-gb" ;
+    osd:template "http://acropolis.org.uk/?for={odrl:Party?}&lang={language?}&limit={count?}&media={dct:DCMIType?}&offset={startIndex?}&q={searchTerms?}&type={dct:IMT?}" ;
+    dct:hasFormat <http://acropolis.org.uk/index.ttl?media=image&q=dench&offset=10&limit=5> ;
+    dct:isPartOf <http://acropolis.org.uk/> ;
+    a void:Dataset ;
+    xhtml:prev <http://acropolis.org.uk/?limit=5&media=image&offset=5&q=dench> ;
+    rdfs:label "Everything containing \"dench\" which has related image available to everyone"@en-gb .
+
+<http://acropolis.org.uk/index.ttl?media=image&q=dench&offset=10&limit=5>
+    dct:format <http://purl.org/NET/mediatypes/text/turtle> ;
+    a dcmitype:Text, <http://www.w3.org/ns/formats/Turtle> .
+

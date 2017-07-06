@@ -125,7 +125,10 @@ class RESClient
 
             if(is_array($audiences))
             {
+                // the audiences array has to be sorted, as Acropolis sorts
+                // the querystring in the returned resource's URI alphabetically
                 $audiencesQuery = '';
+                sort($audiences);
                 foreach($audiences as $audience)
                 {
                     if($audiencesQuery !== '')
