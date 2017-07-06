@@ -34,20 +34,27 @@ final class RESClientTest extends TestCase
         $lod->loadRdf(file_get_contents(FIXTURES_AUDIENCE), 'text/turtle');
 
         $client = new RESClient(NULL, $lod);
+
+        // the audiences() method uses resolve(), so will only do a fetch
+        // when the audiences URI isn't in the context (it is, as we load the
+        // RDF for it); no need to stub fetch()
         $audiences = $client->audiences();
 
         $this->assertEquals(4, count($audiences));
     }
 
-    function testQuery()
+    function testSearch()
     {
         $lod = new LOD();
         $lod->loadRdf(file_get_contents(FIXTURES_SEARCH_DENCH), 'text/turtle');
 
+        // search uses resolve(), so will only do HTTP GET if the search URI
+        // isn't in the context; it is, because we manually load its RDF
         $client = new RESClient(NULL, $lod);
         $results = $client->search('dench', RESMedia::IMAGE, 5);
 
-        $this->assertEquals('http://acropolis.org.uk/?q=dench&media=image&limit=5&offset=0', $results['acropolis_uri']);
+        $acropolisUri = 'http://acropolis.org.uk/?limit=5&media=image&q=dench';
+        $this->assertEquals($acropolisUri, $results['acropolis_uri']);
         $this->assertEquals(4, count($results['items']));
         $this->assertTrue($results['hasNext']);
         $this->assertEquals(0, $results['offset']);
