@@ -121,10 +121,14 @@ class RESClient
         if($query)
         {
             $uri = $this->acropolisUrl .
-                   '?q=' . urlencode($query) .
+                   '?limit=' . urlencode($limit) .
                    '&media=' . urlencode($media) .
-                   '&limit=' . urlencode($limit) .
-                   '&offset=' . urlencode($offset);
+                   '&q=' . urlencode($query);
+
+            if($offset > 0)
+            {
+                $uri .= '&offset=' . urlencode($offset);
+            }
 
             if(is_array($audiences))
             {
