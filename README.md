@@ -50,7 +50,7 @@ to the root of the application and do:
 ./vendor/bin/robo server
 ```
 
-You can access the search application at `http://localhost:8888/api/`.
+You can access the search application at `http://localhost:8888/`.
 
 Alternatively, you can run it as a PHP application using a standard web server
 like Apache.
@@ -65,13 +65,13 @@ the application's HTTP client.
 The following paths are available on the service:
 
 *   `/?callback=<callback URL>`
-    `->` show UI for searching RES and selecting media resources
-*   `/api/audiences`
+    `->` minimal UI for searching RES and selecting media resources
+*   `/audiences`
     `->` show Acropolis audiences as JSON
-*   `/api/search?q=<search>&limit=<num results>&offset=<zero-indexed offset>&for[]=<audience URI>`
+*   `/search?q=<search>&limit=<num results>&offset=<zero-indexed offset>&for[]=<audience URI>`
     `->` perform a search and return list of matching topics
     (`for[]=` can be repeated multiple times)
-*   `/api/proxy/<proxy ID>?format=json(default)|rdf&media=image|video|audio|text`
+*   `/proxy/<proxy ID>?format=json(default)|rdf&media=image|video|audio|text`
     `->` return proxy data, including lists of related media
 
 See the following section for samples of the responses for each.
@@ -89,7 +89,7 @@ the browser to:
 ```
 
 The structure of the selected resource is the same as one of the items
-returned by the `/api/proxy` endpoint. For example:
+returned by the `/proxy` endpoint. For example:
 
 ```
 {
@@ -109,10 +109,10 @@ This is JSON-encoded and appended to the callback URL before the browser
 redirection.
 
 
-### /api/audiences
+### /audiences
 
 ```
-# http://localhost:8888/api/audiences
+# http://localhost:8888/audiences
 [
   {
     "uri": "http://bbcimages.acropolis.org.uk/#members",
@@ -133,7 +133,7 @@ redirection.
 ]
 ```
 
-### /api/search
+### /search
 
 NB Only one item is shown in the `items` array here.
 
@@ -141,7 +141,7 @@ The `api_uri` for an item points to the URL on the RES search service from
 which full data for the item can be retrieved.
 
 ```
-# http://localhost:8888/api/search?q=bird
+# http://localhost:8888/search?q=bird
 {
   "acropolis_uri": "http://acropolis.org.uk/?q=bird&media=image&limit=10&offset=0",
   "query": "bird",
@@ -153,14 +153,14 @@ which full data for the item can be retrieved.
       "topic_uri": "http://acropolis.org.uk/10d2e5069bdb457ab0e7ab6da5422e7f#id",
       "label": "Bird feeder",
       "description": "A birdfeeder, bird feeder, bird table, or tray feeder are devices placed outdoors to supply bird food to birds (bird feeding). The success of a bird feeder in attracting birds depends upon its placement and the kinds of foods offered, as different species have different preferences.\nMost bird feeders supply seeds or bird food, such as millet, sunflower (oil and striped), safflower, Niger seed, and rapeseed or canola seed to seed-eating birds.\nBird feeders often are used for birdwatching and many people keep webcams trained on feeders where birds often congregate some even live just near the bird feeder.",
-      "api_uri": "http://localhost:8888/api/proxy?uri=http://acropolis.org.uk/10d2e5069bdb457ab0e7ab6da5422e7f%23id&media=image"
+      "api_uri": "http://localhost:8888/proxy?uri=http://acropolis.org.uk/10d2e5069bdb457ab0e7ab6da5422e7f%23id&media=image"
     },
     ...
   ]
 }
 ```
 
-### /api/proxy
+### /proxy
 
 NB Only one player item is shown here.
 
@@ -181,7 +181,7 @@ The `thumbnail` property points to a directly-embeddable image which can be used
 See the `lib/RESMedia.php` file for more details of how resources are assigned media types.
 
 ```
-# http://localhost:8888/api/proxy?uri=http://acropolis.org.uk/10d2e5069bdb457ab0e7ab6da5422e7f%23id&media=image
+# http://localhost:8888/proxy?uri=http://acropolis.org.uk/10d2e5069bdb457ab0e7ab6da5422e7f%23id&media=image
 {
   "uri": "http://acropolis.org.uk/10d2e5069bdb457ab0e7ab6da5422e7f#id",
   "label": "Bird feeder",

@@ -45,15 +45,14 @@ class Controller
     // call with /?callback=<callback URL>; when a resource is selected, the
     // UI is redirected to
     // <callback URL>?media=<JSON-encoded representation of the selected resource>
-    public function home(Request $request, Response $response)
+    public function minimal(Request $request, Response $response)
     {
-        $html = file_get_contents(__DIR__ . '/../views/ui.html');
+        $html = file_get_contents(__DIR__ . '/../views/minimal.html');
 
         $html = preg_replace('/__CAPABILITIES__/', json_encode($this->capabilities), $html);
 
         $response->getBody()->write($html);
-        return $response->withHeader('Content-Type', 'text/html')
-                        ->withHeader('Content-Location', '/ui.html');
+        return $response->withHeader('Content-Type', 'text/html');
     }
 
     // get all audiences known to Acropolis

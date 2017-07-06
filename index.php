@@ -36,7 +36,7 @@ if(empty($capabilities))
     $apiPrefix = '/';
 
     $capabilities = array(
-        'home' => $apiPrefix,
+        'minimal' => $apiPrefix . 'minimal',
         'search' => $apiPrefix . 'search',
         'proxy' => $apiPrefix . 'proxy',
         'audiences' => $apiPrefix . 'audiences'
@@ -61,7 +61,8 @@ $container['Controller'] = function($container) use($client, $capabilities) {
     return new Controller($client, $capabilities);
 };
 
-$app->get($capabilities['home'], 'Controller:home');
+$app->get('/', 'Controller:minimal');
+$app->get($capabilities['minimal'], 'Controller:minimal');
 $app->get($capabilities['audiences'], 'Controller:audiences');
 $app->get($capabilities['search'], 'Controller:search');
 $app->get($capabilities['proxy'], 'Controller:proxy');
