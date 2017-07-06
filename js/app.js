@@ -574,7 +574,11 @@ var RESClient = function (host, capabilities, callbackUrl) {
     lastQuery = query;
     lastMedia = media;
 
-    if (audiences) {
+    var url = host + capabilities['search'] +
+      '?q=' + encodeURIComponent(query) +
+      '&offset=' + offset + '&media=' + media;
+
+    if (audiences.length > 0) {
       var audiencesQuerystring = '';
       for (var i = 0; i < audiences.length; i++) {
         if (audiencesQuerystring !== '') {
@@ -583,11 +587,9 @@ var RESClient = function (host, capabilities, callbackUrl) {
 
         audiencesQuerystring += 'for[]=' + encodeURIComponent(audiences[i]);
       }
-    }
 
-    var url = host + capabilities['search'] +
-      '?q=' + encodeURIComponent(query) +
-      '&offset=' + offset + '&media=' + media + '&' + audiencesQuerystring;
+      url += '&' + audiencesQuerystring;
+    }
 
     console.log('search URL: ' + url);
 
