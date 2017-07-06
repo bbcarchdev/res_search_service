@@ -120,15 +120,8 @@ class RESClient
 
         if($query)
         {
-            $uri = $this->acropolisUrl .
-                   '?limit=' . urlencode($limit) .
-                   '&media=' . urlencode($media) .
-                   '&q=' . urlencode($query);
-
-            if($offset > 0)
-            {
-                $uri .= '&offset=' . urlencode($offset);
-            }
+            // build URI
+            $uri = $this->acropolisUrl . '?';
 
             if(is_array($audiences))
             {
@@ -142,11 +135,22 @@ class RESClient
                     $audiencesQuery .= 'for=' . urlencode($audience);
                 }
 
-                $uri .= '&' . $audiencesQuery;
+                $uri .= $audiencesQuery . '&';
             }
+
+            $uri .= 'limit=' . urlencode($limit) .
+                    '&media=' . urlencode($media) ;
+
+            if($offset > 0)
+            {
+                $uri .= '&offset=' . urlencode($offset);
+            }
+
+            $uri .= '&q=' . urlencode($query);
 
             $result['acropolis_uri'] = $uri;
 
+            // resolve the URI
             $searchResultResource = $this->lod[$uri];
 
             foreach($searchResultResource['olo:slot'] as $slot)
