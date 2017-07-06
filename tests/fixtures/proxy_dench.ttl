@@ -1,0 +1,88 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix po: <http://purl.org/ontology/po/> .
+@prefix cert: <http://www.w3.org/ns/auth/cert#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
+@prefix mrss: <http://search.yahoo.com/mrss/> .
+@prefix xhtml: <http://www.w3.org/1999/xhtml/vocab#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix acl: <http://www.w3.org/ns/auth/acl#> .
+@prefix wdrs: <http://www.w3.org/2007/05/powder-s#> .
+@prefix schema: <http://schema.org/> .
+@prefix res: <http://bbcarchdev.github.io/ns/spindle#> .
+@prefix osd: <http://a9.com/-/spec/opensearch/1.1/> .
+@prefix olo: <http://purl.org/ontology/olo/core#> .
+
+<http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7>
+    dct:hasFormat <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7.ttl> ;
+    dct:modified "2017-06-24T21:36:32Z"^^xsd:dateTime ;
+    dct:rights <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#rights> ;
+    a foaf:Document ;
+    rdfs:label "Information about 'Dame Judi Dench laughing, Jan 2011'"@en ;
+    rdfs:seeAlso <http://bbcimages.acropolis.org.uk/11031233.ttl> ;
+    foaf:primaryTopic <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id> .
+
+<http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id>
+    dct:description "Dame Judi Dench photographed for BBC news and current affairs analysis programme, The Andrew Marr Show, TX 16th Jan 2011, 16/01/201. Laughing Landscape format"@en ;
+    dct:isPartOf <http://acropolis.org.uk/000054330b0044399a9ce1835fdfc09b#id>, <http://acropolis.org.uk/0003c571b61b4a23804a5930cfa4f515#id>, <http://acropolis.org.uk/000562796d214e5f81d7096f008af070#id>, <http://acropolis.org.uk/00096f83551f4b03a0cb505418778c96#id>, <http://acropolis.org.uk/0009a254a92a40dba10dc47b7fdcdce3#id>, <http://acropolis.org.uk/0009baa56f80459884d7e77271004316#id>, <http://acropolis.org.uk/000bff1a43a94e9a8568be25c66bd3fd#id>, <http://acropolis.org.uk/000dea33635048f7841207485678b784#id>, <http://acropolis.org.uk/000f21ffa4be474ab7a102cabf376d32#id>, <http://acropolis.org.uk/000fdbfb128346db878101a71da4c828#id>, <http://acropolis.org.uk/000ffefe1f82479c9a384dc11248a434#id>, <http://acropolis.org.uk/0011045d29c34e608fff96ba66458117#id>, <http://acropolis.org.uk/001913a87ce54c4e988db577a9f5e517#id>, <http://acropolis.org.uk/001a6fe91e6c431097e9f8a5934a49b9#id>, <http://acropolis.org.uk/001b39eaa4404ce7af180f07aaa7bc6a#id>, <http://acropolis.org.uk/001c870c6c1b4729baca92b7ce2c1a8e#id>, <http://acropolis.org.uk/001d7ccc2e0b4358a0d345d1071df831#id>, <http://acropolis.org.uk/001eab1b23f54c6db7ae279089b1880f#id>, <http://acropolis.org.uk/001f4543905147e9998f9f6136c9b077#id>, <http://acropolis.org.uk/0024d55fb0ea429686358fc31ad9e292#id>, <http://acropolis.org.uk/0024ea94a15349c8bf9a438cf65a5f5f#id>, <http://acropolis.org.uk/0027c6b98be84c00a529c3418ba0eef5#id>, <http://acropolis.org.uk/002866c0c591480bacc0472e23707a6c#id>, <http://acropolis.org.uk/002958c70cc644a08513de3c43e10eec#id>, <http://acropolis.org.uk/002c4a3e168f405b95789f419c27bd94#id>, <http://acropolis.org.uk/10679acabf4347dbba041f138526a5fa#id> ;
+    olo:slot <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7.ttl#8bfbb99494594aa3ac21dae6263463a2> ;
+    mrss:player <http://bbcimages.acropolis.org.uk/11031233/player> ;
+    a frbr:Work, schema:Photograph ;
+    rdfs:label "Dame Judi Dench laughing, Jan 2011"@en ;
+    rdfs:seeAlso <http://acropolis.org.uk/8bfbb99494594aa3ac21dae6263463a2#id> ;
+    foaf:topic <http://acropolis.org.uk/04fe852eee6d4940b8eaf9f0d7972dee#id>, <http://acropolis.org.uk/05279e1708374c65b155cc4c6869cdc5#id>, <http://acropolis.org.uk/08d6cf4604ab403980c80de2bd738c28#id>, <http://acropolis.org.uk/15c9ecd948a44c6689e19e79bddac5c9#id>, <http://acropolis.org.uk/378464725d4e46e888648e8cd39e7b52#id>, <http://acropolis.org.uk/8b1a29796eab4a7b843635ca8e1bb2e6#id>, <http://acropolis.org.uk/8b2f5d3bb6e44be88b79d9936ef2c61b#id>, <http://acropolis.org.uk/90233420b64849a085a3d6c88133a5d1#id>, <http://acropolis.org.uk/91beb48c1556469aaa6b768e46d6d6b5#id>, <http://acropolis.org.uk/a75e5495087d4db89eccc6a52cc0e3a4#id> .
+
+<http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#rights>
+    rdfs:comment "Incorporates data from bbcimages.acropolis.org.uk under the terms of OGL"@en ;
+    rdfs:label "Rights information for 'Dame Judi Dench laughing, Jan 2011'"@en ;
+    rdfs:seeAlso <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> .
+
+<http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7.ttl>
+    dct:format <http://purl.org/NET/mediatypes/text/turtle> ;
+    a dcmitype:Text, <http://www.w3.org/ns/formats/Turtle> .
+
+<http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7.ttl#8bfbb99494594aa3ac21dae6263463a2>
+    olo:index 1 ;
+    olo:item <http://acropolis.org.uk/8bfbb99494594aa3ac21dae6263463a2#id> ;
+    a olo:Slot ;
+    rdfs:label "Result #1"@en-gb .
+
+<http://acropolis.org.uk/8bfbb99494594aa3ac21dae6263463a2#id>
+    a foaf:Document ;
+    rdfs:label "Information about \"Dame Judi Dench laughing, Jan 2011\" "@en ;
+    foaf:topic <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id> .
+
+<http://bbcimages.acropolis.org.uk/11031233>
+    wdrs:describedBy <http://bbcimages.acropolis.org.uk/11031233.ttl> ;
+    foaf:primaryTopic <http://bbcimages.acropolis.org.uk/11031233#id> .
+
+<http://bbcimages.acropolis.org.uk/11031233#id>
+    dct:description "Dame Judi Dench photographed for BBC news and current affairs analysis programme, The Andrew Marr Show, TX 16th Jan 2011, 16/01/201. Laughing Landscape format"@en ;
+    dct:subject <http://dbpedia.org/resource/Broadcasting>, <http://dbpedia.org/resource/Culture>, <http://dbpedia.org/resource/Entertainment>, <http://dbpedia.org/resource/Interactivity>, <http://dbpedia.org/resource/Judi_Dench>, <http://dbpedia.org/resource/Laughter>, <http://dbpedia.org/resource/Music_radio>, <http://dbpedia.org/resource/Television>, <http://dbpedia.org/resource/The_Andrew_Marr_Show>, <http://dbpedia.org/resource/The_arts> ;
+    dct:title "Dame Judi Dench laughing, Jan 2011"@en ;
+    <http://purl.org/net/lio#location> <http://sws.geonames.org/2635167/> ;
+    void:inDataset <http://bbcimages.acropolis.org.uk/#id> ;
+    schema:thumbnailUrl <http://bbcimages.acropolis.org.uk/11031233/media/11031233-200x200.jpeg> ;
+    mrss:player <http://bbcimages.acropolis.org.uk/11031233/player> ;
+    a schema:Photograph ;
+    owl:sameAs <http://acropolis.org.uk/2cbf4d6fa0db4b58b574c28722e061a7#id> ;
+    wdrs:describedBy <http://bbcimages.acropolis.org.uk/11031233.ttl> .
+
+<http://bbcimages.acropolis.org.uk/11031233.ttl>
+    dct:format <http://purl.org/NET/mediatypes/text/turtle> ;
+    dct:license <http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+    a dcmitype:Text, <http://www.w3.org/ns/formats/Turtle>, foaf:Document ;
+    rdfs:label "Information about \"Dame Judi Dench laughing, Jan 2011\" (Turtle format)"@en .
+

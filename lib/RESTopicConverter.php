@@ -34,13 +34,16 @@ class RESTopicConverter
      *
      * @param string $proxyUri URI of the proxy resource on Acropolis which
      * represents the topic
+     * @param string $media RESMedia media type constant; results are filtered
+     * to only include media matching this
+     * @param string[] $slotItemUris Array of slot item URIs for the topic
      * @param \res\liblod\LOD $lod
      *
      * @return mixed JSON object representing the topic and its media
      */
     public function convert($proxyUri, $media, $slotItemUris, $lod)
     {
-        $proxy = $lod->locate[$proxyUri];
+        $proxy = $lod->locate($proxyUri);
 
         $proxyLabel = "{$proxy['rdfs:label,dcterms:title']}";
         $proxyDescription = "{$proxy['dcterms:description,rdfs:comment,po:synopsis']}";

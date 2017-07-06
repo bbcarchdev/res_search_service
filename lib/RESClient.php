@@ -218,12 +218,12 @@ class RESClient
         // find all the resources which could be useful;
         // if the proxy has olo:slot resources, we want their olo:items
         $slotItemUris = array();
-        $slotObjectResources = $proxy['olo:slot'];
+        $slotObjectResources = $proxy->filter('olo:slot');
 
         foreach($slotObjectResources as $slotObjectResource)
         {
             $slotResourceUri = "$slotObjectResource";
-            $slotResource = $this->lod[$slotResourceUri];
+            $slotResource = $this->lod->locate($slotResourceUri);
             $slotItemUris[] = "{$slotResource['olo:item']}";
         }
 
