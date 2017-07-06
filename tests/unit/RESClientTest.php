@@ -61,4 +61,8 @@ final class RESClientTest extends TestCase
         $this->assertEquals(5, $results['limit']);
         $this->assertEquals('dench', $results['query']);
     }
+
+    function testProxy()
+    {
+    }
 }
