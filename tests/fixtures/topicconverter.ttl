@@ -1,0 +1,84 @@
+@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix exif: <http://www.w3.org/2003/12/exif/ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix lio: <http://purl.org/net/lio#> .
+@prefix mrss: <http://search.yahoo.com/mrss/> .
+@prefix olo: <http://purl.org/ontology/olo/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# the main resource we get back in search results from Acropolis
+# (the proxy for the person)
+<http://foo.bar/person1proxy>
+  a foaf:Person ;
+  rdfs:label "Petero Suitenbacker"@en ;
+  rdfs:comment "A fine figure of a man"@en ;
+  olo:slot <http://foo.bar/person1proxy#slot1>, <http://foo.bar/person1proxy#slot2> .
+
+# the actual person
+<http://foo.bar/person1>
+  a foaf:Person ;
+  rdfs:label "Petero Suitenbacker"@en ;
+  rdfs:comment "A fine figure of a man"@en .
+
+# slots relating to the proxy (effectively related potential media resources),
+# which point at proxies for the real media
+<http://foo.bar/person1proxy#slot1>
+  a olo:Slot ;
+  olo:item <http://foo.bar/image1proxy> .
+
+<http://foo.bar/person1proxy#slot2>
+  a olo:Slot ;
+  olo:item <http://foo.bar/image2proxy> .
+
+# proxies for the real images (slot items)
+<http://foo.bar/image1proxy>
+  a schema:Photograph ;
+  owl:sameAs <http://foo.bar/image1> .
+
+<http://foo.bar/image2proxy>
+  a schema:Photograph ;
+  owl:sameAs <http://foo.bar/image2> .
+
+# the real images (which are owl:sameAs the slot items)
+# licence is on the photograph
+<http://foo.bar/image1>
+  a schema:Photograph ;
+  dcterms:date "2009-02-04"^^xsd:Date ;
+  dcterms:description "Petero Suitenbacker jumping over a gate"@en ;
+  dcterms:subject <http://foo.bar/person1> ;
+  dcterms:title "Petero Suitenbacker"@en ;
+  schema:thumbnailUrl <http://foo.bar/image1.jpg> ;
+  owl:sameAs <http://foo.bar/image1proxy> ;
+  dcterms:license <https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/> ;
+  mrss:player <http://foo.bar/image1/player> ;
+  lio:location <http://sws.geonames.org/7777/> .
+
+# licence is on the player
+<http://foo.bar/image2>
+  a schema:Photograph ;
+  dcterms:date "2011-01-16"^^xsd:Date ;
+  dcterms:description "Petero Suitenbacker on a space dolphin"@en ;
+  dcterms:subject <http://foo.bar/person1> ;
+  dcterms:title "Petero Suitenbacker"@en ;
+  schema:thumbnailUrl <http://foo.bar/image2.jpg> ;
+  owl:sameAs <http://foo.bar/image2proxy> ;
+  mrss:player <http://foo.bar/image2/player> ;
+  lio:location <http://sws.geonames.org/2635167/> .
+
+# players for the images (which have the licensing data on them)
+<http://foo.bar/image1/player>
+  a dcmitype:StillImage ;
+  dcterms:format <http://purl.org/NET/mediatypes/text/html> ;
+  exif:height 3856 ;
+  exif:width 2640 .
+
+<http://foo.bar/image2/player>
+  a dcmitype:StillImage ;
+  dcterms:format <http://purl.org/NET/mediatypes/text/html> ;
+  dcterms:license <http://creativecommons.org/licenses/by/4.0/> ;
+  exif:height 1700 ;
+  exif:width 1600 .

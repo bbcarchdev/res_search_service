@@ -62,7 +62,7 @@ class RESClient
 
         if(empty($converter))
         {
-            $converter = new RESTopicConverter();
+            $converter = new RESTopicConverter($this->lod);
         }
         $this->converter = $converter;
     }
@@ -238,6 +238,6 @@ class RESClient
         // players
         $this->lod->fetchAll($slotItemUris);
 
-        return $this->converter->convert($proxyUri, $media, $slotItemUris, $this->lod);
+        return $this->converter->convert($proxyUri, $media, $slotItemUris);
     }
 }

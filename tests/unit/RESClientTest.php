@@ -175,7 +175,7 @@ final class RESClientTest extends TestCase
         $converter = $this->createMock(RESTopicConverter::class);
         $converter->expects($this->once())
                   ->method('convert')
-                  ->with($uri, RESMedia::IMAGE, array($slotItemUri), $lod);
+                  ->with($uri, RESMedia::IMAGE, array($slotItemUri));
 
         // meat of the test where we call proxy()
         $client = new RESClient(NULL, $lod, $converter);

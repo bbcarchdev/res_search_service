@@ -29,6 +29,63 @@ use \res\libres\RESMedia;
  */
 class RESTopicConverter
 {
+    private $lod;
+
+    public function __construct($lod)
+    {
+        $this->lod = $lod;
+    }
+
+    // extract media objects from the LOD context $lod
+    // $predicate = 'mrss:player' or 'mrss:content'
+    private function _extractMedia($possibleMediaUri, $predicate, $media)
+    {
+        $licensePredicates = 'cc:license,dcterms:license,' .
+                             'dcterms:rights,dcterms:accessRights,' .
+                             'xhtml:license';
+
+        $resource = $this->lod[$possibleMediaUri];
+
+        if(empty($resource))
+        {
+            return FALSE;
+        }
+
+        // if it's got a statement matching <$possibleMediaUri> <$predicate>,
+        // we want it; but we reject any resources which don't match the media
+        // type filter (if set)
+        foreach($resource[$predicate] as $playerOrContentUri)
+        {
+            $mediaType = RESMedia::getMediaType($resource);
+
+            if($mediaType === $media)
+            {
+                $licence = "{$resource[$licensePredicates]}";
+                if(empty($licence))
+                {
+                    $playerOrContent = $this->lod->locate("$playerOrContentUri");
+                    if($playerOrContent)
+                    {
+                        $licence = "{$playerOrContent[$licensePredicates]}";
+                    }
+                }
+                $licence = RESLicence::getShortForm($licence);
+
+                return array(
+                    'sourceUri' => $possibleMediaUri,
+                    'uri' => "$playerOrContentUri",
+                    'mediaType' => $mediaType,
+                    'license' => $licence,
+                    'label' => "{$resource['dcterms:title,rdfs:label']}",
+                    'description' => "{$resource['dcterms:description,rdfs:comment']}",
+                    'thumbnail' => "{$resource['schema:thumbnailUrl']}",
+                    'date' => "{$resource['dcterms:date']}",
+                    'location' => "{$resource['lio:location']}"
+                );
+            }
+        }
+    }
+
     /**
      * Convert RDF stored in a LOD context to JSON.
      *
@@ -37,13 +94,12 @@ class RESTopicConverter
      * @param string $media RESMedia media type constant; results are filtered
      * to only include media matching this
      * @param string[] $slotItemUris Array of slot item URIs for the topic
-     * @param \res\liblod\LOD $lod
      *
      * @return mixed JSON object representing the topic and its media
      */
-    public function convert($proxyUri, $media, $slotItemUris, $lod)
+    public function convert($proxyUri, $media, $slotItemUris)
     {
-        $proxy = $lod->locate($proxyUri);
+        $proxy = $this->lod->locate($proxyUri);
 
         $proxyLabel = "{$proxy['rdfs:label,dcterms:title']}";
         $proxyDescription = "{$proxy['dcterms:description,rdfs:comment,po:synopsis']}";
@@ -79,61 +135,32 @@ class RESTopicConverter
             // retrieve the URIs of the media which are same as the slot item
             // ($slotItemUri is a RES proxy URI, so this gives us the URI
             // of the original resource)
-            $sameAsSlotItemUris = $lod->getSameAs($slotItemUri);
+            $sameAsSlotItemUris = $this->lod->getSameAs($slotItemUri);
 
             // also get the topics or primary topics of the resources which
             // are sameAs the slot item
             $topicUris = array();
             $topicPredicates = 'foaf:topic,foaf:primaryTopic,schema:about';
-            $licensePredicates = 'cc:license,dcterms:license,' .
-                                 'dcterms:rights,dcterms:accessRights,' .
-                                 'xhtml:license';
 
             foreach($sameAsSlotItemUris as $sameAsSlotItemUri)
             {
-                $sameAsResource = $lod[$sameAsSlotItemUri];
+                $sameAsResource = $this->lod[$sameAsSlotItemUri];
                 $topicUris[] = "{$sameAsResource[$topicPredicates]}";
             }
 
             $possibleMediaUris = array_merge($sameAsSlotItemUris, $topicUris);
             foreach($possibleMediaUris as $possibleMediaUri)
             {
-                $resource = $lod[$possibleMediaUri];
-
-                if(empty($resource))
+                $player = $this->_extractMedia($possibleMediaUri, 'mrss:player', $media);
+                if($player)
                 {
-                    continue;
+                    $players[] = $player;
                 }
 
-                // if it's got an mrss:player or mrss:content, we want it;
-                // but we reject any resources which don't match the media
-                // type filter (if set)
-                foreach($resource['mrss:player,mrss:content'] as $mediaUri)
+                $contentItem = $this->_extractMedia($possibleMediaUri, 'mrss:content', $media);
+                if($contentItem)
                 {
-                    $mediaType = RESMedia::getMediaType($resource);
-
-                    if($mediaType === $media)
-                    {
-                        $licence = "{$resource[$licensePredicates]}";
-                        if(empty($licence))
-                        {
-                            $player = $lod->locate("$mediaUri");
-                            $licence = "{$player[$licensePredicates]}";
-                        }
-                        $licence = RESLicence::getShortForm($licence);
-
-                        $players[] = array(
-                            'sourceUri' => $possibleMediaUri,
-                            'uri' => "$mediaUri",
-                            'mediaType' => $mediaType,
-                            'license' => $licence,
-                            'label' => "{$resource['dcterms:title,rdfs:label']}",
-                            'description' => "{$resource['dcterms:description,rdfs:comment']}",
-                            'thumbnail' => "{$resource['schema:thumbnailUrl']}",
-                            'date' => "{$resource['dcterms:date']}",
-                            'location' => "{$resource['lio:location']}"
-                        );
-                    }
+                    $content[] = $contentItem;
                 }
             }
         }

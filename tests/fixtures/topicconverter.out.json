@@ -1,0 +1,32 @@
+{
+  "uri": "http://foo.bar/person1proxy",
+  "label": "Petero Suitenbacker",
+  "description": "A fine figure of a man",
+  "media": "image",
+  "players": [
+    {
+      "sourceUri": "http://foo.bar/image1",
+      "uri": "http://foo.bar/image1/player",
+      "mediaType": "image",
+      "license": "OGL v3",
+      "label": "Petero Suitenbacker",
+      "description": "Petero Suitenbacker jumping over a gate",
+      "thumbnail": "http://foo.bar/image1.jpg",
+      "date": "2009-02-04",
+      "location": "http://sws.geonames.org/7777/"
+    },
+    {
+      "sourceUri": "http://foo.bar/image2",
+      "uri": "http://foo.bar/image2/player",
+      "mediaType": "image",
+      "license": "CC BY 4.0",
+      "label": "Petero Suitenbacker",
+      "description": "Petero Suitenbacker on a space dolphin",
+      "thumbnail": "http://foo.bar/image2.jpg",
+      "date": "2011-01-16",
+      "location": "http://sws.geonames.org/2635167/"
+    }
+  ],
+  "content": [],
+  "pages": []
+}
