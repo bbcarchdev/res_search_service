@@ -1,0 +1,43 @@
+@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix po: <http://purl.org/ontology/po/> .
+@prefix schema: <http://schema.org/> .
+
+<http://foo.bar/i1>
+  a dcmitype:StillImage .
+
+<http://foo.bar/i2>
+  a schema:Photograph .
+
+<http://foo.bar/i3>
+  a schema:ImageObject .
+
+<http://foo.bar/i4>
+  a foaf:Image .
+
+<http://foo.bar/v1>
+  a dcmitype:MovingImage .
+
+<http://foo.bar/v2>
+  a schema:Movie .
+
+<http://foo.bar/v3>
+  a schema:VideoObject .
+
+<http://foo.bar/v4>
+  a po:TVContent .
+
+<http://foo.bar/a1>
+  a dcmitype:Sound .
+
+<http://foo.bar/a2>
+  a schema:AudioObject .
+
+<http://foo.bar/a3>
+  a po:RadioContent .
+
+<http://foo.bar/t1>
+  a dcmitype:Text .
+
+<http://foo.bar/x1>
+  a <http://foo.bar/mysteryobject> .
