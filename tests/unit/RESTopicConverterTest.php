@@ -22,12 +22,13 @@ use PHPUnit\Framework\TestCase;
 use \res\liblod\LOD;
 use res\libres\RESTopicConverter;
 
-const FIXTURES_TURTLE = __DIR__ . '/../fixtures/topicconverter.ttl';
-const FIXTURES_EXPECTED_JSON = __DIR__ . '/../fixtures/topicconverter.out.json';
+const FIXTURES_CONVERTER_TURTLE = __DIR__ . '/../fixtures/topicconverter.ttl';
+const FIXTURES_CONVERTER_EXPECTED_JSON = __DIR__ . '/../fixtures/topicconverter.out.json';
+const FIXTURES_CONVERTER_EXPECTED_TEXT_JSON = __DIR__ . '/../fixtures/topicconvertertext.out.json';
 
 final class RESTopicConverterTest extends TestCase
 {
-    /* inputs to RESTopicConverter->convert():
+    /* inputs to CONVERTER->convert():
      * proxyUri = 'http://foo.bar/person1proxy'
      * media = 'image'
      * slotItemUris = ['http://foo.bar/image1proxy', 'http://foo.bar/image2proxy']
@@ -35,11 +36,11 @@ final class RESTopicConverterTest extends TestCase
     public function testConvert()
     {
         $lod = new LOD();
-        $lod->loadRdf(file_get_contents(FIXTURES_TURTLE), 'text/turtle');
+        $lod->loadRdf(file_get_contents(FIXTURES_CONVERTER_TURTLE), 'text/turtle');
 
         $converter = new RESTopicConverter($lod);
 
-        $expected = json_decode(file_get_contents(FIXTURES_EXPECTED_JSON), TRUE);
+        $expected = json_decode(file_get_contents(FIXTURES_CONVERTER_EXPECTED_JSON), TRUE);
 
         $slotItemUris = array(
             'http://foo.bar/image1proxy',
@@ -49,6 +50,29 @@ final class RESTopicConverterTest extends TestCase
         $actual = $converter->convert(
             'http://foo.bar/person1proxy',
             'image',
+            $slotItemUris
+        );
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testConvertText()
+    {
+        $lod = new LOD();
+        $lod->loadRdf(file_get_contents(FIXTURES_CONVERTER_TURTLE), 'text/turtle');
+
+        $converter = new RESTopicConverter($lod);
+
+        $expected = json_decode(file_get_contents(FIXTURES_CONVERTER_EXPECTED_TEXT_JSON), TRUE);
+
+        $slotItemUris = array(
+            'http://foo.bar/image1proxy',
+            'http://foo.bar/image2proxy'
+        );
+
+        $actual = $converter->convert(
+            'http://foo.bar/person1proxy',
+            'text',
             $slotItemUris
         );
 

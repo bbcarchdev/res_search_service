@@ -16,7 +16,8 @@
   a foaf:Person ;
   rdfs:label "Petero Suitenbacker"@en ;
   rdfs:comment "A fine figure of a man"@en ;
-  olo:slot <http://foo.bar/person1proxy#slot1>, <http://foo.bar/person1proxy#slot2> .
+  olo:slot <http://foo.bar/person1proxy#slot1>, <http://foo.bar/person1proxy#slot2> ;
+  foaf:page <http://boop.bop/peterosuitenbacker>, <http://mystery.foo/petero>, <http://datapedia.bar/petero_the_great> .
 
 # the actual person
 <http://foo.bar/person1>

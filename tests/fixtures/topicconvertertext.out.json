@@ -1,0 +1,28 @@
+{
+  "uri": "http://foo.bar/person1proxy",
+  "label": "Petero Suitenbacker",
+  "description": "A fine figure of a man",
+  "media": "text",
+  "players": [],
+  "content": [],
+  "pages": [
+    {
+      "sourceUri": "http://foo.bar/person1proxy",
+      "uri": "http://boop.bop/peterosuitenbacker",
+      "mediaType": "web page",
+      "label": "Petero Suitenbacker"
+    },
+    {
+      "sourceUri": "http://foo.bar/person1proxy",
+      "uri": "http://mystery.foo/petero",
+      "mediaType": "web page",
+      "label": "Petero Suitenbacker"
+    },
+    {
+      "sourceUri": "http://foo.bar/person1proxy",
+      "uri": "http://datapedia.bar/petero_the_great",
+      "mediaType": "web page",
+      "label": "Petero Suitenbacker"
+     }
+  ]
+}
