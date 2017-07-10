@@ -115,10 +115,12 @@ class RESTopicConverter
                     if($mediaType === $media)
                     {
                         $licence = "{$resource[$licensePredicates]}";
-                        if(!empty($licence))
+                        if(empty($licence))
                         {
-                            $licence = RESLicence::getShortForm($licence);
+                            $player = $lod->locate("$mediaUri");
+                            $licence = "{$player[$licensePredicates]}";
                         }
+                        $licence = RESLicence::getShortForm($licence);
 
                         $players[] = array(
                             'sourceUri' => $possibleMediaUri,

@@ -52,7 +52,7 @@ class RESLicence
         'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/1/' => 'OGL v1',
         'http://www.nationalarchives.gov.uk/doc/open-government-licence/version/1/' => 'OGL v1',
 
-        'http://www.ordnancesurvey.co.uk/business-and-government/licensing/' + \
+        'http://www.ordnancesurvey.co.uk/business-and-government/licensing/' .
         'using-creating-data-with-os-products/os-opendata.html' => 'OS OpenData',
 
         'http://www.ordnancesurvey.co.uk/oswebsite/opendata/licence/docs/licence.pdf' => 'OS OpenData',
