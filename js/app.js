@@ -508,28 +508,28 @@ var TopicPanel = function (selector, callbackUrl) {
    * Forward the browser to the callback URL with the item data encoded into
    * its querystring
    *
-   * mediaObj comes from the pluginservice API; see plugin/index.php,
-   * extractMedia() function for how this is put together by the API
+   * mediaObj comes from the search service API
    *
    * It will look like one of the following:
    *
    * {
    *   'uri' : '<media URI>',
-   *   'source_uri' : '<acropolis URI>,
+   *   'sourceUri' : '<acropolis URI>,
    *   'label' : '<label>',
+   *   'license': '<short form of licence URI, e.g. CC BY>',
+   *   'mediaType' : 'image | video',
    *   'description' : '<description>',
    *   'thumbnail' : '<thumbnail URI>',
-   *   'height_px' : <height>,
-   *   'width_px' : <width>,
    *   'date' : 'YYYY-MM-DD',
-   *   'location' : '<instance URI>'
+   *   'location' : '<location URI>'
    * }
    *
    * or
    *
    * {
    *   'uri' : '<media URI>',
-   *   'source_uri' : '<acropolis URI>,
+   *   'sourceUri' : '<acropolis URI>,
+   *   'mediaType' : 'web page | text',
    *   'label' : '<label>',
    *   'description' : '<description>'
    * }

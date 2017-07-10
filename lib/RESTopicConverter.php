@@ -120,7 +120,7 @@ class RESTopicConverter
                 if(substr($pageUri, 0, 4) === 'http')
                 {
                     $pages[] = array(
-                        'source_uri' => $proxyUri,
+                        'sourceUri' => $proxyUri,
                         'uri' => $pageUri,
                         'label' => $proxyLabel,
                         'mediaType' => 'web page'
