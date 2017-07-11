@@ -17,7 +17,7 @@ Install [Composer](http://getcomposer.org/).
 
 Install [Bower](https://bower.io/).
 
-Run this command in the root of the project:
+Run these commands in the root of the project:
 
 ```
 composer install
@@ -25,7 +25,7 @@ bower install
 ```
 
 If you only want the web service, you can ignore the Bower instructions:
-Bower is only necessary if you want to use the graphical UI.
+Bower components are only necessary if you want to use the graphical UI.
 
 ## Tests
 
@@ -52,20 +52,25 @@ to the root of the application and do:
 
 You can access the search application at `http://localhost:8888/`.
 
-Alternatively, you can run it as a PHP application using a standard web server
-like Apache.
+Alternatively, you can run the service as a PHP application using a 
+standard web server like Apache.
 
 If you want to use your own Acropolis endpoint, rather than the public BBC
 one at http://acropolis.org.uk/, set an `ACROPOLIS_URL` environment
 variable. The web service will then use that as the target endpoint for
-the application's HTTP client.
+the application's HTTP client, e.g.
+
+```
+ACROPOLIS_URL=http://localhost:9999/ ./vendor/bin/robo server
+```
 
 ## Paths
 
 The following paths are available on the service:
 
 *   `/?callback=<callback URL>`
-    `->` minimal UI for searching RES and selecting media resources
+    `->` minimal UI for searching RES and selecting media resources; if
+    `callback` is set, media resources can be selected via buttons (see below)
 *   `/audiences`
     `->` show Acropolis audiences as JSON
 *   `/search?q=<search>&limit=<num results>&offset=<zero-indexed offset>&for[]=<audience URI>`
@@ -106,8 +111,7 @@ returned by the `/proxy` endpoint. For example:
 ```
 
 This is JSON-encoded and appended to the callback URL before the browser
-redirection.
-
+is redirected.
 
 ### /audiences
 
@@ -226,3 +230,6 @@ Copyright © 2017 BBC
 
 The RES search service is licensed under the terms of the Apache License,
 Version 2.0 (see LICENCE-APACHE.txt).
+
+Various third party libraries are used by the application, but these
+are not distributed with it.
