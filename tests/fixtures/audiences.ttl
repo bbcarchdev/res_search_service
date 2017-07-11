@@ -29,7 +29,7 @@
     dct:hasFormat <http://acropolis.org.uk/audiences.ttl> ;
     a void:Dataset ;
     rdfs:label "Audiences"@en-gb ;
-    rdfs:seeAlso <http://acropolis.org.uk/audiences#all>, <http://bbcimages.acropolis.org.uk/#members>, <http://bobnational.net/#members>, <http://shakespeare.acropolis.org.uk/#members>, <http://www.bbcredux.com/#members> .
+    rdfs:seeAlso <http://acropolis.org.uk/audiences#all>, <http://bbcimages.acropolis.org.uk/#members>, <http://bobnational.net/#members>, <http://shakespeare.acropolis.org.uk/#members> .
 
 <http://acropolis.org.uk/audiences#all>
     a odrl:Group ;
@@ -55,9 +55,3 @@
     a odrl:Group ;
     rdfs:label "Authorised users of the BBC Shakespeare Archive Resource"@en-gb ;
     rdfs:seeAlso <http://acropolis.org.uk/.ttl?for=http://shakespeare.acropolis.org.uk/%23members> .
-
-<http://www.bbcredux.com/#members>
-    a odrl:Group ;
-    rdfs:label "Authorised users of BBC Redux"@en-gb ;
-    rdfs:seeAlso <http://acropolis.org.uk/.ttl?for=http://www.bbcredux.com/%23members> .
-

@@ -32,6 +32,17 @@ const FIXTURES_SEARCH_DENCH_OFFSET = __DIR__ . '/../fixtures/search_dench_offset
 const FIXTURES_SEARCH_DENCH_AUDIENCES = __DIR__ . '/../fixtures/search_dench_audiences.ttl';
 const FIXTURES_PROXY_DENCH = __DIR__ . '/../fixtures/proxy_dench.ttl';
 
+// fake out LOD so it does no network access
+class FakeLOD extends LOD
+{
+    private $languages = array('en-gb', 'en');
+
+    public function fetch($uri)
+    {
+        return $this->locate($uri);
+    }
+}
+
 final class RESClientTest extends TestCase
 {
     // create a mock LODInstance containing the RDF/Turtle in the string $rdf
@@ -56,7 +67,8 @@ final class RESClientTest extends TestCase
 
     function testAudiences()
     {
-        $lod = new LOD();
+        // stub LOD
+        $lod = new FakeLOD();
         $lod->loadRdf(file_get_contents(FIXTURES_AUDIENCE), 'text/turtle');
 
         $client = new RESClient(NULL, $lod);
@@ -66,12 +78,12 @@ final class RESClientTest extends TestCase
         // RDF for it); no need to stub fetch()
         $audiences = $client->audiences();
 
-        $this->assertEquals(4, count($audiences));
+        $this->assertEquals(3, count($audiences));
     }
 
     function testSearch()
     {
-        $lod = new LOD();
+        $lod = new FakeLOD();
         $lod->loadRdf(file_get_contents(FIXTURES_SEARCH_DENCH), 'text/turtle');
 
         // search uses resolve(), so will only do HTTP GET if the search URI
@@ -90,26 +102,26 @@ final class RESClientTest extends TestCase
 
     function testSearchWithOffset()
     {
-        $lod = new LOD();
+        $lod = new FakeLOD();
         $lod->loadRdf(file_get_contents(FIXTURES_SEARCH_DENCH_OFFSET), 'text/turtle');
 
         // search uses resolve(), so will only do HTTP GET if the search URI
         // isn't in the context; it is, because we manually load its RDF
         $client = new RESClient(NULL, $lod);
-        $results = $client->search('dench', RESMedia::IMAGE, 15, 10);
+        $results = $client->search('dench', RESMedia::IMAGE, 5, 10);
 
-        $acropolisUri = 'http://acropolis.org.uk/?limit=15&media=image&offset=10&q=dench';
+        $acropolisUri = 'http://acropolis.org.uk/?limit=5&media=image&offset=10&q=dench';
         $this->assertEquals($acropolisUri, $results['acropolis_uri']);
         $this->assertEquals(0, count($results['items']));
         $this->assertFalse($results['hasNext']);
         $this->assertEquals(10, $results['offset']);
-        $this->assertEquals(15, $results['limit']);
+        $this->assertEquals(5, $results['limit']);
         $this->assertEquals('dench', $results['query']);
     }
 
     function testSearchWithAudiences()
     {
-        $lod = new LOD();
+        $lod = new FakeLOD();
         $lod->loadRdf(file_get_contents(FIXTURES_SEARCH_DENCH_AUDIENCES), 'text/turtle');
 
         // search uses resolve(), so will only do HTTP GET if the search URI
