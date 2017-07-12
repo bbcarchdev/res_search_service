@@ -155,7 +155,8 @@ class RESClient
             $result['acropolis_uri'] = $uri;
 
             // resolve the URI
-            $searchResultResource = $this->lod[$uri];
+            $this->lod->fetch($uri);
+            $searchResultResource = $this->lod->locate(urldecode($uri));
 
             foreach($searchResultResource['olo:slot'] as $slot)
             {
