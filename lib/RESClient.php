@@ -74,14 +74,15 @@ class RESClient
     public function audiences()
     {
         $uri = rtrim($this->acropolisUrl, '/') . '/audiences';
-        $audiencesInstance = $this->lod[$uri];
+        $audiencesInstance = $this->lod->resolve($uri);
 
         $audiences = array();
 
-        foreach($audiencesInstance['rdfs:seeAlso'] as $audienceObject)
+        foreach($audiencesInstance->filter('rdfs:seeAlso') as $audienceObject)
         {
             $audienceUri = "$audienceObject";
-            $label = "{$this->lod[$audienceUri]['rdfs:label']}";
+            $audience = $this->lod->locate($audienceUri);
+            $label = "{$audience->filter('rdfs:label')}";
 
             if($label !== 'Everyone')
             {
