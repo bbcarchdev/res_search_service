@@ -19,7 +19,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-use \res\liblod\LOD;
+use \bbcarchdev\liblod\LOD;
 use res\libres\RESTopicConverter;
 
 const FIXTURES_CONVERTER_TURTLE = __DIR__ . '/../fixtures/topicconverter.ttl';

@@ -68,7 +68,7 @@ class RESMedia
     /**
      * Determine the media type of a LODInstance.
      *
-     * @param \res\liblod\LODInstance
+     * @param \bbcarchdev\liblod\LODInstance
      *
      * @return string Media type if the LODInstance $lodinstance has
      * rdf:type <media type>, where <media type> is a recognisable media RDF

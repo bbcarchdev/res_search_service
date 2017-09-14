@@ -19,7 +19,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-use \res\liblod\LOD;
+use \bbcarchdev\liblod\LOD;
 use res\libres\RESMedia;
 
 const FIXTURES_MEDIA_TURTLE = __DIR__ . '/../fixtures/mediaexamples.ttl';

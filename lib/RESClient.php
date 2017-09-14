@@ -21,8 +21,8 @@ namespace res\libres;
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 
-use \res\liblod\LOD;
-use \res\liblod\Rdf;
+use \bbcarchdev\liblod\LOD;
+use \bbcarchdev\liblod\Rdf;
 use \res\libres\RESTopicConverter;
 
 /**
@@ -43,7 +43,7 @@ class RESClient
      * Constructor.
      *
      * @param string $acropolisUrl
-     * @param \res\liblod\LOD $lod
+     * @param \bbcarchdev\liblod\LOD $lod
      * @param \res\libres\RESTopicConverter $converter
      */
     public function __construct($acropolisUrl=NULL, $lod=NULL, $converter=NULL)

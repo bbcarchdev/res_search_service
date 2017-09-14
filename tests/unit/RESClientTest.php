@@ -19,9 +19,9 @@
 
 use PHPUnit\Framework\TestCase;
 
-use \res\liblod\LOD;
-use \res\liblod\LODInstance;
-use \res\liblod\Parser;
+use \bbcarchdev\liblod\LOD;
+use \bbcarchdev\liblod\LODInstance;
+use \bbcarchdev\liblod\Parser;
 use res\libres\RESClient;
 use res\libres\RESMedia;
 use res\libres\RESTopicConverter;
