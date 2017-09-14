@@ -130,11 +130,13 @@ final class RESClientTest extends TestCase
 
         // note that the audience URIs are sorted alphabetically in the response
         // from Acropolis; so we send them into search() in the wrong order
-        // to make sure that we apply the same sort
-        $audiences = array('http://foo.bar', 'http://bar.baz');
+        // to make sure that we apply the same sort;
+        // also note that the second audience URI, http://bar.baz#bo, appears
+        // as http://bar.baz%23bo in the returned result set URI
+        $audiences = array('http://foo.bar', 'http://bar.baz#bo');
         $results = $client->search('dench', RESMedia::IMAGE, 3, 1, $audiences);
 
-        $acropolisUri = 'http://acropolis.org.uk/?for=http%3A%2F%2Fbar.baz&for=http%3A%2F%2Ffoo.bar&limit=3&media=image&offset=1&q=dench';
+        $acropolisUri = 'http://acropolis.org.uk/?for=http://bar.baz%23bo&for=http://foo.bar&limit=3&media=image&offset=1&q=dench';
         $this->assertEquals($acropolisUri, $results['acropolis_uri']);
         $this->assertEquals(3, count($results['items']));
         $this->assertTrue($results['hasNext']);
