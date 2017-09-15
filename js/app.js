@@ -353,11 +353,18 @@ var TopicPanel = function (selector, callbackUrl) {
 
   // returns true if uri looks like it might be an image file
   var isImage = function (uri) {
-    return uri && (uri.endsWith('.jpg') || uri.endsWith('.JPG') ||
-           uri.endsWith('.jpeg') || uri.endsWith('.JPEG') ||
-           uri.endsWith('.png') || uri.endsWith('.PNG') ||
-           uri.endsWith('.gif') || uri.endsWith('.GIF') ||
-           uri.endsWith('.bmp') || uri.endsWith('.BMP'));
+    if (!uri) {
+      return false;
+    }
+
+    uri = uri.toLowerCase();
+
+    return uri.endsWith('.jpg') ||
+           uri.endsWith('.jpeg') ||
+           uri.endsWith('.png') ||
+           uri.endsWith('.gif') ||
+           uri.endsWith('.webp') ||
+           uri.endsWith('.heif');
   };
 
   // populate players, content or pages list and show the section if it

@@ -71,17 +71,17 @@ class Controller
     // (for[] can be repeated multiple times)
     public function search(Request $request, Response $response)
     {
-        $query = $request->getQueryParam('q', $default=NULL);
-        $media = $request->getQueryParam('media', $default=RESMedia::IMAGE);
-        $limit = intval($request->getQueryParam('limit', $default=10));
-        $offset = intval($request->getQueryParam('offset', $default=0));
-        $audiences = $request->getQueryParam('for', $default=NULL);
+        $query = $request->getQueryParam('q', NULL);
+        $media = $request->getQueryParam('media', RESMedia::IMAGE);
+        $limit = intval($request->getQueryParam('limit', 10));
+        $offset = intval($request->getQueryParam('offset', 0));
+        $audiences = $request->getQueryParam('for', NULL);
 
         $result = $this->client->search($query, $media, $limit, $offset, $audiences);
 
-        // for each item in the results, construct a URI pointing at the plugin
+        // for each item in the results, construct a URI pointing at the search
         // service API, in the form
-        // http://<plugin service domain and port>/proxy?uri=<topic URI>
+        // http://<search service domain and port>/proxy?uri=<topic URI>
         // (where '/proxy' comes from the capabilities mapping for this Controller)
         $baseApiUri = $request->getUri()->withPath($this->capabilities['proxy']);
 
@@ -98,8 +98,8 @@ class Controller
     // request proxy resource from Acropolis by URI
     public function proxy(Request $request, Response $response)
     {
-        $topicUri = $request->getQueryParam('uri', $default=NULL);
-        $media = $request->getQueryParam('media', $default=RESMedia::IMAGE);
+        $topicUri = $request->getQueryParam('uri', NULL);
+        $media = $request->getQueryParam('media', RESMedia::IMAGE);
 
         $result = $this->client->proxy($topicUri, $media);
 

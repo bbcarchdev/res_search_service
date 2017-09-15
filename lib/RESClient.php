@@ -22,7 +22,6 @@ namespace res\libres;
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 use \bbcarchdev\liblod\LOD;
-use \bbcarchdev\liblod\Rdf;
 use \res\libres\RESTopicConverter;
 
 /**

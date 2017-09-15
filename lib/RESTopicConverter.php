@@ -34,16 +34,15 @@ class RESTopicConverter
     public function __construct($lod)
     {
         $this->lod = $lod;
+
+        // RDF predicates used to locate licences
+        $this->licensePredicates = RESLicence::getLicensingPredicates();
     }
 
     // extract media objects from the LOD context $lod
     // $predicate = 'mrss:player' or 'mrss:content'
     private function _extractMedia($possibleMediaUri, $predicate, $media)
     {
-        $licensePredicates = 'cc:license,dcterms:license,' .
-                             'dcterms:rights,dcterms:accessRights,' .
-                             'xhtml:license';
-
         $resource = $this->lod[$possibleMediaUri];
 
         if(empty($resource))
@@ -60,13 +59,13 @@ class RESTopicConverter
 
             if($mediaType === $media)
             {
-                $licence = "{$resource[$licensePredicates]}";
+                $licence = "{$resource[$this->licensePredicates]}";
                 if(empty($licence))
                 {
                     $playerOrContent = $this->lod->locate("$playerOrContentUri");
                     if($playerOrContent)
                     {
-                        $licence = "{$playerOrContent[$licensePredicates]}";
+                        $licence = "{$playerOrContent[$this->licensePredicates]}";
                     }
                 }
                 $licence = RESLicence::getShortForm($licence);

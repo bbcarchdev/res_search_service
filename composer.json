@@ -2,7 +2,7 @@
     "name": "res/moodle_plugin_service",
     "version": "0.0.1",
     "type": "project",
-    "license": "Apache v2",
+    "license": "Apache-2.0",
     "description": "A Moodle plugin service for RES",
     "authors": [
         {

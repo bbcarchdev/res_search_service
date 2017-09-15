@@ -17,31 +17,15 @@
  * limitations under the License.
  */
 
-// set capabilities; this can be overridden in a capabilities.json file
-// in this directory if desired
-$capabilities = NULL;
+// set default paths for all service URIs
+$apiPrefix = '/';
 
-$capabilitiesFile = __DIR__ . '/capabilities.json';
-if(file_exists($capabilitiesFile))
-{
-    // if json_decode is passed TRUE as its second argument, JSON is decoded
-    // to an associative array rather than a stdClass instance
-    $asArray = TRUE;
-    $capabilities = json_decode(file_get_contents($capabilitiesFile), $asArray);
-}
-
-if(empty($capabilities))
-{
-    // set default paths for all service URIs
-    $apiPrefix = '/';
-
-    $capabilities = array(
-        'minimal' => $apiPrefix . 'minimal',
-        'search' => $apiPrefix . 'search',
-        'proxy' => $apiPrefix . 'proxy',
-        'audiences' => $apiPrefix . 'audiences'
-    );
-}
+$paths = array(
+    'minimal' => $apiPrefix . 'minimal',
+    'search' => $apiPrefix . 'search',
+    'proxy' => $apiPrefix . 'proxy',
+    'audiences' => $apiPrefix . 'audiences'
+);
 
 // start the app
 require_once(__DIR__ . '/vendor/autoload.php');
@@ -57,14 +41,14 @@ $client = new RESClient($acropolisUrl);
 $app = new SlimApp();
 $container = $app->getContainer();
 
-$container['Controller'] = function($container) use($client, $capabilities) {
-    return new Controller($client, $capabilities);
+$container['Controller'] = function($container) use($client, $paths) {
+    return new Controller($client, $paths);
 };
 
-$app->get('/', 'Controller:minimal');
-$app->get($capabilities['minimal'], 'Controller:minimal');
-$app->get($capabilities['audiences'], 'Controller:audiences');
-$app->get($capabilities['search'], 'Controller:search');
-$app->get($capabilities['proxy'], 'Controller:proxy');
+$app->get($apiPrefix, 'Controller:minimal');
+$app->get($paths['minimal'], 'Controller:minimal');
+$app->get($paths['audiences'], 'Controller:audiences');
+$app->get($paths['search'], 'Controller:search');
+$app->get($paths['proxy'], 'Controller:proxy');
 
 $app->run();
