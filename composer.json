@@ -1,9 +1,9 @@
 {
-    "name": "res/moodle_plugin_service",
+    "name": "res/res_search_service",
     "version": "0.0.2",
     "type": "project",
     "license": "Apache-2.0",
-    "description": "A Moodle plugin service for RES",
+    "description": "A simple search API for RES",
     "authors": [
         {
             "name": "Elliot Smith",
@@ -11,13 +11,13 @@
         }
     ],
     "autoload": {
-      "psr-4": {
-        "res\\libres\\": "lib/"
-      }
+        "psr-4": {
+            "res\\libres\\": "lib/"
+        }
     },
     "require": {
         "php": ">= 5.6",
-	"bbcarchdev/liblod": "^0.1.0",
+        "bbcarchdev/liblod": "^0.1.0",
         "slim/slim": "^3.8"
     },
     "require-dev": {
