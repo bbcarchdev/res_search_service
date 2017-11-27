@@ -1,6 +1,6 @@
 {
     "name": "res/res_search_service",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "type": "project",
     "license": "Apache-2.0",
     "description": "A simple search API for RES",
