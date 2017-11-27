@@ -167,7 +167,7 @@ var SearchResultsPanel = function (selector) {
   // save the current scroll position, so search results can be scrolled
   // back to it when returning to search results from the topic panel
   that.saveScrollPosition = function () {
-    savedScrollPosition = $(document.body).scrollTop();
+    savedScrollPosition = $('html,body').scrollTop();
   };
 
   // return to the last-saved scroll position (without animation)
@@ -296,7 +296,6 @@ var SearchResultsPanel = function (selector) {
       that.setSearchResults();
 
       // scroll to the first result with animation
-      console.log('will scroll to ' + results.items[0].api_uri);
       that.scrollTo(results.items[0].api_uri, 500);
     }
     else {
@@ -309,6 +308,7 @@ var SearchResultsPanel = function (selector) {
   // attribute when created to facilitate this
   that.scrollTo = function (topicUri, duration) {
     var body = $(document.body);
+    console.log('trying to scroll to ' + topicUri);
 
     var offsets = element.find('[data-api-uri="' + topicUri + '"]').offset()
 
@@ -321,7 +321,7 @@ var SearchResultsPanel = function (selector) {
   };
 
   that.scrollToPosition = function (top, duration) {
-    var body = $(document.body);
+    var body = $('html,body');
     body.animate({scrollTop: top}, {duration: duration});
   };
 
