@@ -1,6 +1,6 @@
 {
     "name": "res/moodle_plugin_service",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "type": "project",
     "license": "Apache-2.0",
     "description": "A Moodle plugin service for RES",
