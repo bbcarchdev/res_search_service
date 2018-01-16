@@ -17,16 +17,6 @@
  * limitations under the License.
  */
 
-// set default paths for all service URIs
-$apiPrefix = '/';
-
-$paths = array(
-    'minimal' => $apiPrefix . 'minimal',
-    'search' => $apiPrefix . 'search',
-    'proxy' => $apiPrefix . 'proxy',
-    'audiences' => $apiPrefix . 'audiences'
-);
-
 // start the app
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -41,14 +31,24 @@ $client = new RESClient($acropolisUrl);
 $app = new SlimApp();
 $container = $app->getContainer();
 
-$container['Controller'] = function($container) use($client, $paths) {
-    return new Controller($client, $paths);
+// set default URLs for all service URIs
+$apiPrefix = '/';
+
+$endpoints = array(
+    'minimal' => $apiPrefix . 'minimal',
+    'search' => $apiPrefix . 'search',
+    'proxy' => $apiPrefix . 'proxy',
+    'audiences' => $apiPrefix . 'audiences'
+);
+
+$container['Controller'] = function($container) use($client, $endpoints) {
+    return new Controller($client, $endpoints);
 };
 
 $app->get($apiPrefix, 'Controller:minimal');
-$app->get($paths['minimal'], 'Controller:minimal');
-$app->get($paths['audiences'], 'Controller:audiences');
-$app->get($paths['search'], 'Controller:search');
-$app->get($paths['proxy'], 'Controller:proxy');
+$app->get($endpoints['minimal'], 'Controller:minimal');
+$app->get($endpoints['audiences'], 'Controller:audiences');
+$app->get($endpoints['search'], 'Controller:search');
+$app->get($endpoints['proxy'], 'Controller:proxy');
 
 $app->run();

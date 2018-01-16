@@ -31,14 +31,14 @@ class Controller
 {
     private $client;
 
-    // map from endpoint names to paths; this is used in the HTML interface
-    // to set the paths to the capabilities in the search service dynamically
-    private $capabilities;
+    // map from endpoint names to URLs; this is used in the HTML interface
+    // to set search service URLs dynamically
+    private $endpoints;
 
-    public function __construct($client, $capabilities)
+    public function __construct($client, $endpoints)
     {
         $this->client = $client;
-        $this->capabilities = $capabilities;
+        $this->endpoints = $endpoints;
     }
 
     // single HTML page: UI for searching Acropolis, showing search results, and
@@ -46,14 +46,14 @@ class Controller
     // call with /?callback=<callback URL>; when a resource is selected, the
     // UI is redirected to
     // <callback URL>?media=<JSON-encoded representation of the selected resource>;
-    // capabilities are written into a JavaScript element in the HTML so the
+    // endpoints are written into a JavaScript element in the HTML so the
     // UI knows where the service endpoints are (and they don't have to be
     // hard-coded into the UI code)
     public function minimal(Request $request, Response $response)
     {
         $html = file_get_contents(__DIR__ . '/../views/minimal.html');
 
-        $html = preg_replace('/__CAPABILITIES__/', json_encode($this->capabilities), $html);
+        $html = preg_replace('/__ENDPOINTS__/', json_encode($this->endpoints), $html);
 
         $response->getBody()->write($html);
         return $response->withHeader('Content-Type', 'text/html');
@@ -82,13 +82,14 @@ class Controller
         // for each item in the results, construct a URI pointing at the search
         // service API, in the form
         // http://<search service domain and port>/proxy?uri=<topic URI>
-        // (where '/proxy' comes from the capabilities mapping for this Controller)
-        $baseApiUri = $request->getUri()->withPath($this->capabilities['proxy']);
+        // (where the piece before the querystring is derived
+        // from the endpoints for this Controller)
+        $baseApiUri = $this->endpoints['proxy'];
 
         foreach($result['items'] as $index => $item)
         {
-            $querystring = 'uri=' . $item['topic_uri'] . '&media=' . $media;
-            $item['api_uri'] = "{$baseApiUri->withQuery($querystring)}";
+            $querystring = 'uri=' . urlencode($item['topic_uri']) . '&media=' . urlencode($media);
+            $item['api_uri'] = $baseApiUri . '?' . $querystring;
             $result['items'][$index] = $item;
         }
 
