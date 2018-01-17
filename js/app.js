@@ -546,7 +546,7 @@ var TopicPanel = function (selector, callbackUrl) {
   that.forward = function (mediaObj) {
     // encode mediaObj into the querystring
     var mediaJson = JSON.stringify(mediaObj);
-    var fullCallbackUrl = URI(callbackUrl).query({media: mediaJson});
+    var fullCallbackUrl = URI(callbackUrl).addSearch('media', mediaJson);
 
     // forward to full callbackUrl
     window.location.href = fullCallbackUrl.toString();
