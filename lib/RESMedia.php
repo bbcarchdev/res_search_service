@@ -29,6 +29,12 @@ class RESMedia
     const IMAGE = 'image';
     const TEXT = 'text';
 
+    private static function endsWith($haystack, $needle)
+    {
+        $length = strlen($needle);
+        return $length === 0 || (substr($haystack, -$length) === $needle);
+    }
+
     private static function isVideo($lodinstance, $mediaUri)
     {
         return (strpos($mediaUri, '.youtube.') !== FALSE) ||
@@ -42,11 +48,16 @@ class RESMedia
 
     private static function isAudio($lodinstance, $mediaUri)
     {
-        return $lodinstance->hasType(
-            'dcmitype:Sound',
-            'schema:AudioObject',
-            'po:RadioContent'
-        );
+        $hasAudioSuffix = self::endsWith($mediaUri, '.mp3') ||
+            self::endsWith($mediaUri, '.ogg') ||
+            self::endsWith($mediaUri, '.wav');
+
+        return $hasAudioSuffix ||
+            $lodinstance->hasType(
+                'dcmitype:Sound',
+                'schema:AudioObject',
+                'po:RadioContent'
+            );
     }
 
     private static function isImage($lodinstance, $mediaUri)
