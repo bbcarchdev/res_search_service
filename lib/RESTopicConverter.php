@@ -55,7 +55,7 @@ class RESTopicConverter
         // type filter (if set)
         foreach($resource[$predicate] as $playerOrContentUri)
         {
-            $mediaType = RESMedia::getMediaType($resource);
+            $mediaType = RESMedia::getMediaType($resource, $playerOrContentUri);
 
             if($mediaType === $media)
             {

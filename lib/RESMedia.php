@@ -29,17 +29,18 @@ class RESMedia
     const IMAGE = 'image';
     const TEXT = 'text';
 
-    private static function isVideo($lodinstance)
+    private static function isVideo($lodinstance, $mediaUri)
     {
-        return $lodinstance->hasType(
-            'dcmitype:MovingImage',
-            'schema:Movie',
-            'schema:VideoObject',
-            'po:TVContent'
-        );
+        return (strpos($mediaUri, '.youtube.') !== FALSE) ||
+            $lodinstance->hasType(
+                'dcmitype:MovingImage',
+                'schema:Movie',
+                'schema:VideoObject',
+                'po:TVContent'
+            );
     }
 
-    private static function isAudio($lodinstance)
+    private static function isAudio($lodinstance, $mediaUri)
     {
         return $lodinstance->hasType(
             'dcmitype:Sound',
@@ -48,7 +49,7 @@ class RESMedia
         );
     }
 
-    private static function isImage($lodinstance)
+    private static function isImage($lodinstance, $mediaUri)
     {
         return $lodinstance->hasType(
             'dcmitype:StillImage',
@@ -58,7 +59,7 @@ class RESMedia
         );
     }
 
-    private static function isText($lodinstance)
+    private static function isText($lodinstance, $mediaUri)
     {
         return $lodinstance->hasType(
             'dcmitype:Text'
@@ -69,13 +70,14 @@ class RESMedia
      * Determine the media type of a LODInstance.
      *
      * @param \bbcarchdev\liblod\LODInstance
+     * @param string $mediaUri URI of the media player or content
      *
      * @return string Media type if the LODInstance $lodinstance has
      * rdf:type <media type>, where <media type> is a recognisable media RDF
      * type; NULL otherwise; media type return value is one of
      * 'audio', 'video', 'image', 'text'
      */
-    public static function getMediaType($lodinstance)
+    public static function getMediaType($lodinstance, $mediaUri='')
     {
         // early return if $lodinstance is not set
         if(empty($lodinstance))
@@ -83,19 +85,19 @@ class RESMedia
             return NULL;
         }
 
-        if(self::isVideo($lodinstance))
+        if(self::isVideo($lodinstance, $mediaUri))
         {
             return self::VIDEO;
         }
-        else if(self::isAudio($lodinstance))
+        else if(self::isAudio($lodinstance, $mediaUri))
         {
             return self::AUDIO;
         }
-        else if(self::isImage($lodinstance))
+        else if(self::isImage($lodinstance, $mediaUri))
         {
             return self::IMAGE;
         }
-        else if(self::isText($lodinstance))
+        else if(self::isText($lodinstance, $mediaUri))
         {
             return self::TEXT;
         }

@@ -37,7 +37,7 @@ final class RESMediaTest extends TestCase
     private function getMediaType($uri)
     {
         $instance = $this->lod[$uri];
-        return RESMedia::getMediaType($instance);
+        return RESMedia::getMediaType($instance, '');
     }
 
     public function testGetMediaType()
