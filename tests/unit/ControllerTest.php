@@ -163,7 +163,7 @@ final class ControllerTest extends TestCase
         $body = json_decode($response->getBody(), TRUE);
         $item = $body['items'][0];
 
-        $expectedApiUri = 'http://localhost/proxy?uri=http://foo.bar/topic1&media=video';
+        $expectedApiUri = '/proxy?uri=http%3A%2F%2Ffoo.bar%2Ftopic1&media=video';
         $actualApiUri = $item['api_uri'];
         $this->assertEquals($expectedApiUri, $actualApiUri);
     }
